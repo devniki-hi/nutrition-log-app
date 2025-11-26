@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     delete "/account", to: "users/registrations#destroy", as: "destroy_user_registration"
   end
   # Redirect to localhost from 127.0.0.1 to use same IP address with Vite server
-  get "inertia-example", to: "inertia_example#index"
+  # get "inertia-example", to: "inertia_example#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
