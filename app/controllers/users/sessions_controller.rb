@@ -24,7 +24,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-    sign_out(current_user)if user_signed_in?
+    sign_out(current_user) if user_signed_in?
     redirect_to unauthenticated_root_path, status: :see_other
   end
 
