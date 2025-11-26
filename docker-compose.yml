@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    container_name: nutrition-log-web
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0 & bin/vite dev"
+    volumes:
+      - .:/usr/src/nutrition-log-app
+      - bundle-data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+      - "3036:3036" # vite
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14-alpine
+    container_name: nutrition-log-db
+    env_file:
+      - .env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
+  bundle-data:
