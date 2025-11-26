@@ -4,4 +4,10 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  inertia_share do
+    {
+      auth: user_signed_in?
+    }
+  end
 end
