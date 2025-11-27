@@ -1,84 +1,123 @@
-// app/frontend/pages/Auth/SignUpPage.tsx
-import { Form, Link } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link } from "@inertiajs/react";
 
-export default function SignUpPage({ errors }) {
+export default function SignUpPage() {
+  const { data, setData, post, processing, errors } = useForm({
+    user: {
+      email: "",
+      password: "",
+      password_confirmation: "",
+    },
+  });
+
+  const submit = (e) => {
+    e.preventDefault();
+    post("/signup");
+  };
+
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
-      <Form
-        method="post"
-        action="/signup" // 必要に応じて /users や devise ルートに変更
-        className="space-y-4"
-        options={{ replace: true }} // URLを置き換える等のオプション
-      >
-        {/* Email */}
-        <div>
-          <label className="block mb-1" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            name="user[email]"
-            className="w-full border px-3 py-2"
-          />
-          {errors.errors?.email && (
-            <p className="text-red-500 text-sm">
-              {errors.errors.email.join(", ")}
-            </p>
-          )}
-        </div>
+    <div className="flex justify-center px-8 py-24">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl px-8 py-10 shadow-lg">
+        <form onSubmit={submit} className="space-y-6">
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-slate-700">
+              メールアドレス
+            </Label>
 
-        {/* Password */}
-        <div>
-          <label className="block mb-1" htmlFor="password">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="user[password]"
-            className="w-full border px-3 py-2"
-          />
-          {errors.errors?.password && (
-            <p className="text-red-500 text-sm">
-              {errors.errors.password.join(", ")}
-            </p>
-          )}
-        </div>
+            <Input
+              id="email"
+              type="email"
+              name="user[email]"
+              value={data.user.email}
+              onChange={(e) =>
+                setData("user", {
+                  ...data.user,
+                  email: e.target.value,
+                })
+              }
+              className={errors.errors?.email ? "border-red-500" : ""}
+            />
 
-        {/* Password confirmation */}
-        <div>
-          <label className="block mb-1" htmlFor="password_confirmation">
-            Password Confirmation
-          </label>
-          <input
-            id="password_confirmation"
-            type="password"
-            name="user[password_confirmation]"
-            className="w-full border px-3 py-2"
-          />
-          {errors.errors?.password_confirmation && (
-            <p className="text-red-500 text-sm">
-              {errors.errors.password_confirmation.join(", ")}
-            </p>
-          )}
-        </div>
+            {errors.errors?.email && (
+              <p className="text-red-500 text-sm">{errors.errors.email}</p>
+            )}
+          </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded"
-        >
-          Create Account
-        </button>
-      </Form>
+          {/* Password */}
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-slate-700">
+              パスワード
+            </Label>
 
-      <p className="mt-4 text-center">
-        Already have an account?{" "}
-        <Link href="/login" className="text-blue-600">
-          Login
-        </Link>
-      </p>
+            <Input
+              id="password"
+              type="password"
+              name="user[password]"
+              value={data.user.password}
+              onChange={(e) =>
+                setData("user", {
+                  ...data.user,
+                  password: e.target.value,
+                })
+              }
+              className={errors.errors?.password ? "border-red-500" : ""}
+            />
+
+            {errors.errors?.password && (
+              <p className="text-red-500 text-sm">{errors.errors.password}</p>
+            )}
+          </div>
+
+          {/* Password Confirmation */}
+          <div className="space-y-2">
+            <Label htmlFor="password_confirmation" className="text-slate-700">
+              パスワード（確認）
+            </Label>
+
+            <Input
+              id="password_confirmation"
+              type="password"
+              name="user[password_confirmation]"
+              value={data.user.password_confirmation}
+              onChange={(e) =>
+                setData("user", {
+                  ...data.user,
+                  password_confirmation: e.target.value,
+                })
+              }
+              className={
+                errors.errors?.password_confirmation ? "border-red-500" : ""
+              }
+            />
+
+            {errors.errors?.password_confirmation && (
+              <p className="text-red-500 text-sm">
+                {errors.errors.password_confirmation}
+              </p>
+            )}
+          </div>
+
+          {/* Submit */}
+          <Button
+            type="submit"
+            disabled={processing}
+            className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
+          >
+            {processing ? "処理中..." : "アカウント作成"}
+          </Button>
+        </form>
+
+        <p className="text-center text-sm text-slate-700 mt-4">
+          すでにアカウントがありますか？{" "}
+          <Link href="/login" className="text-sky-500 font-medium">
+            ログイン
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
