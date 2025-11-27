@@ -1,6 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import SideBar from "./SideBar.jsx";
-import Header from "./Header.jsx";
+import Header from "./Headers/Header.jsx";
 
 export default function Layout({ children }) {
   const page = usePage();
