@@ -3,12 +3,12 @@ class FoodsController < InertiaController
   inertia_share do {
     unit_types: Food.unit_types.keys,
     sources: Food.sources.keys
-  }end
+  } end
 
   # GET /foods
   def index
     @foods = Food.all
-    render inertia: "Foods/Index",props: {
+    render inertia: "Foods/Index", props: {
       foods: @foods.map do |food|
         serialize_food(food)
       end
@@ -17,7 +17,7 @@ class FoodsController < InertiaController
 
   # GET /foods/1
   def show
-    render inertia:"Foods/Show",props:  {
+    render inertia: "Foods/Show", props:  {
       food: serialize_food(@food),
       unit_types: Food.unit_types.keys,
       sources: Food.sources.keys
@@ -27,7 +27,7 @@ class FoodsController < InertiaController
   # GET /foods/new
   def new
     @food = Food.new
-    render inertia: "Foods/New", props:{
+    render inertia: "Foods/New", props: {
       food: @food,
       unit_types: Food.unit_types.keys,
       sources: Food.sources.keys
@@ -36,7 +36,7 @@ class FoodsController < InertiaController
 
   # GET /foods/1/edit
   def edit
-    render inertia:"Foods/Edit",props:  {
+    render inertia: "Foods/Edit", props:  {
       food: serialize_food(@food)
     }
   end
