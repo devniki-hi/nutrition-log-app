@@ -16,13 +16,13 @@ class FoodsController < InertiaController
   end
 
   # GET /foods/1
-  def show
-    render inertia: "Foods/Show", props:  {
-      food: serialize_food(@food),
-      unit_types: Food.unit_types.keys,
-      sources: Food.sources.keys
-    }
-  end
+  # def show
+  #   render inertia: "Foods/Show", props:  {
+  #     food: serialize_food(@food),
+  #     unit_types: Food.unit_types.keys,
+  #     sources: Food.sources.keys
+  #   }
+  # end
 
   # GET /foods/new
   def new
@@ -35,18 +35,18 @@ class FoodsController < InertiaController
   end
 
   # GET /foods/1/edit
-  def edit
-    render inertia: "Foods/Edit", props:  {
-      food: serialize_food(@food)
-    }
-  end
+  # def edit
+  #   render inertia: "Foods/Edit", props:  {
+  #     food: serialize_food(@food)
+  #   }
+  # end
 
   # POST /foods
   def create
     @food = Food.new(food_params)
 
     if @food.save
-      redirect_to @food, notice: "Food was successfully created."
+      redirect_to foods_url, notice: "Food was successfully created."
     else
       redirect_to new_food_url, inertia: { errors: @food.errors }
     end
@@ -55,9 +55,9 @@ class FoodsController < InertiaController
   # PATCH/PUT /foods/1
   def update
     if @food.update(food_params)
-      redirect_to @food, notice: "Food was successfully updated."
+      redirect_to foods_url, notice: "Food was successfully updated."
     else
-      redirect_to edit_food_url(@food), inertia: { errors: @food.errors }
+      redirect_to foods_url, inertia: { errors: @food.errors }
     end
   end
 

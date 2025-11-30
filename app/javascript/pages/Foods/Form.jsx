@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectTrigger,
@@ -12,7 +11,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { Label } from "@/components/ui/label.jsx";
 import { useFoodEnums } from "./useFoodEnums.jsx";
 
-export default function FoodForm({ food, method, action, submitText }) {
+export default function FoodForm({ food, method, action, onSuccess }) {
   const { unit_types, sources } = useFoodEnums();
 
   const form = useForm({
@@ -33,14 +32,23 @@ export default function FoodForm({ food, method, action, submitText }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (method === "post") {
-      form.post(action);
+      form.post(action, {
+        onSuccess: () => {
+          onSuccess();
+        },
+      });
     } else if (method === "patch") {
-      form.patch(action);
+      form.patch(action, {
+        onSuccess: () => {
+          onSuccess();
+        },
+      });
     }
   };
 
   return (
     <form
+      id="food_form"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
@@ -51,6 +59,7 @@ export default function FoodForm({ food, method, action, submitText }) {
           食品名
         </Label>
         <Input
+          id="name"
           value={form.data.name}
           onChange={(e) => form.setData("name", e.target.value)}
         />
@@ -62,6 +71,7 @@ export default function FoodForm({ food, method, action, submitText }) {
             分量
           </Label>
           <Input
+            id="portion_value"
             type="number"
             value={form.data.portion_value}
             onChange={(e) => form.setData("portion_value", e.target.value)}
@@ -73,11 +83,10 @@ export default function FoodForm({ food, method, action, submitText }) {
             単位
           </Label>
           <Select
-            className=""
             value={form.data.unit_type}
             onValueChange={(val) => form.setData("unit_type", val)}
           >
-            <SelectTrigger>
+            <SelectTrigger id="unit_type">
               <SelectValue placeholder="Select unit" />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -108,10 +117,10 @@ export default function FoodForm({ food, method, action, submitText }) {
           value={form.data.source}
           onValueChange={(val) => form.setData("source", val)}
         >
-          <SelectTrigger>
+          <SelectTrigger id="source">
             <SelectValue placeholder="Select source" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white">
             {sources.map((s) => (
               <SelectItem key={s} value={s}>
                 {s}
@@ -126,6 +135,7 @@ export default function FoodForm({ food, method, action, submitText }) {
           JANコード
         </Label>
         <Input
+          id="jan_code"
           value={form.data.jan_code}
           onChange={(e) => form.setData("jan_code", e.target.value)}
         />
@@ -136,18 +146,11 @@ export default function FoodForm({ food, method, action, submitText }) {
           メモ
         </Label>
         <Textarea
+          id="note"
           value={form.data.note}
           onChange={(e) => form.setData("note", e.target.value)}
         />
       </div>
-
-      <Button
-        disabled={form.processing}
-        className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
-        type="submit"
-      >
-        {form.processing ? "処理中..." : submitText}
-      </Button>
     </form>
   );
 }
@@ -155,10 +158,11 @@ export default function FoodForm({ food, method, action, submitText }) {
 function InputField({ label, field, form }) {
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="unit_type" className="text-slate-700">
+      <Label htmlFor={label} className="text-slate-700">
         {label}
       </Label>
       <Input
+        id={label}
         type="number"
         value={form.data[field]}
         onChange={(e) => form.setData(field, e.target.value)}

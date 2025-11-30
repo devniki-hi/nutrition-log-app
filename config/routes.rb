@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :foods
+  resources :foods, only: [ :index, :new, :create, :update, :destroy ]
   devise_for :users,
               skip: [ :sessions, :registrations ],
               controllers: {
