@@ -1,6 +1,6 @@
 import { Head, Link } from "@inertiajs/react";
 import { Fragment } from "react";
-import Food from "./Food.jsx";
+import Food from "./FoodCard.jsx";
 
 export default function Index({ foods, flash }) {
   return (
@@ -24,17 +24,9 @@ export default function Index({ foods, flash }) {
 
         <div className="min-w-full">
           {foods.map((food) => (
-            <Fragment key={food.id}>
+            <div key={food.id} className="py-2">
               <Food food={food} />
-              <p>
-                <Link
-                  href={`/foods/${food.id}`}
-                  className="ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"
-                >
-                  Show this food
-                </Link>
-              </p>
-            </Fragment>
+            </div>
           ))}
         </div>
       </div>
