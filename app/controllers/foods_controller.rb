@@ -1,5 +1,5 @@
 class FoodsController < InertiaController
-  before_action :set_food, only: %i[ show edit update destroy ]
+  before_action :set_food, only: %i[ update destroy ]
   inertia_share do {
     unit_types: Food.unit_types.keys,
     sources: Food.sources.keys
