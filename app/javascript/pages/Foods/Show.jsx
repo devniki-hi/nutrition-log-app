@@ -7,7 +7,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -19,7 +18,7 @@ export default function Show({ food, flash }) {
     <>
       <Head title={`Food Show`} />
 
-      <div className="w-full px-12 pt-8">
+      <div className="w-full px-12 py-8">
         {flash.notice && (
           <p className="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block">
             {flash.notice}
