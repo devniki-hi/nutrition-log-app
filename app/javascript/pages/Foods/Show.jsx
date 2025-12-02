@@ -2,6 +2,17 @@ import HoverRevealText from "@/components/HoverRevealText.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Head, Link } from "@inertiajs/react";
 import food_image_path from "../../assets/noimage.png";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Show({ food, flash }) {
   return (
@@ -32,15 +43,32 @@ export default function Show({ food, flash }) {
               </Link>
             </Button>
 
-            <Button asChild>
-              <Link
-                href={`/foods/${food.id}`}
-                method="delete"
-                className=" bg-red-400 text-white font-medium"
-              >
-                削除
-              </Link>
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className=" bg-red-400 text-white font-medium">
+                  削除
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    食品を削除してもよろしいでしょうか？
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>キャンセル</AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Link
+                      href={`/foods/${food.id}`}
+                      method="delete"
+                      className=" bg-red-400 text-white font-medium"
+                    >
+                      削除
+                    </Link>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
 
