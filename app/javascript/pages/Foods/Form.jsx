@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label.jsx";
 import { useFoodEnums } from "./useFoodEnums.jsx";
 import { Button } from "@/components/ui/button.jsx";
 
-export default function FoodForm({ food, method, action, submitText = "Add" }) {
+export default function FoodForm({ food, method, action }) {
   const { unit_types, sources } = useFoodEnums();
 
   const form = useForm({
@@ -48,6 +48,7 @@ export default function FoodForm({ food, method, action, submitText = "Add" }) {
 
   return (
     <form
+      id="food_form"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
@@ -143,14 +144,9 @@ export default function FoodForm({ food, method, action, submitText = "Add" }) {
           onChange={(e) => form.setData("note", e.target.value)}
         />
       </div>
-
-      <Button
-        disabled={form.processing}
-        className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
-        type="submit"
-      >
-        {form.processing ? "処理中..." : submitText}
-      </Button>
+      <div className="flex flex-col gap-1">
+        <Input id="image" type="file" className="bg-white" />
+      </div>
     </form>
   );
 }
