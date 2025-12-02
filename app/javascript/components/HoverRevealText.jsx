@@ -1,12 +1,20 @@
-export default function HoverRevealText({ children }) {
+export default function HoverRevealText({
+  children,
+  className = "",
+  textClassName = "",
+  tooltipClassName = "",
+  ...props
+}) {
   return (
-    <div className="group relative w-full flex justify-center">
+    <div className={`group relative ${className}`}>
       {/* 省略表示 */}
-      <span className="line-clamp-1 cursor-pointer">{children}</span>
+      <span className={`line-clamp-1 cursor-pointer ${textClassName}`}>
+        {children}
+      </span>
 
       {/* ホバー時に上に出る Tooltip */}
       <div
-        className="
+        className={`
           absolute
           bottom-full
           mb-2
@@ -22,7 +30,8 @@ export default function HoverRevealText({ children }) {
           group-hover:opacity-100
           transition-opacity
           z-50
-        "
+          ${tooltipClassName}
+          `}
       >
         {children}
 
