@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CardFooter } from "@/components/ui/card.jsx";
-import FoodModal from "../Foods/FoodModal.jsx";
+import FoodModal from "./FoodModal.jsx";
 import { useState } from "react";
 import { Button } from "@/components/ui/button.jsx";
 import { Link } from "@inertiajs/react";
