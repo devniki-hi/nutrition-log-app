@@ -1,0 +1,96 @@
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { CardFooter } from "@/components/ui/card.jsx";
+import FoodModal from "../Foods/FoodModal.jsx";
+import { useState } from "react";
+import { Button } from "@/components/ui/button.jsx";
+import { Link } from "@inertiajs/react";
+
+import Form from "../Foods/Form.jsx";
+
+export default function FoodContent({ food }) {
+  const [open, setOpen] = useState(false);
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+  return (
+    <Card className="max-w-md mx-auto">
+      {/* タイトル */}
+      <CardHeader className="text-center">
+        <CardTitle className="text-xl font-bold">
+          {food.name} {food.portion_value}
+          {food?.unit_type}
+        </CardTitle>
+      </CardHeader>
+
+      {/* 内容 */}
+      <CardContent className="space-y-4 text-sm">
+        {/* 栄養成分表 */}
+        <div className="grid grid-cols-2 gap-y-2">
+          <div>カロリー</div>
+          <div className="text-right">{food.kcal} kcal</div>
+
+          <div>タンパク質</div>
+          <div className="text-right">{food.protein} g</div>
+
+          <div>脂質</div>
+          <div className="text-right">{food.fat} g</div>
+
+          <div>炭水化物</div>
+          <div className="text-right">{food.carbs} g</div>
+
+          <div>糖質</div>
+          <div className="text-right">{food.sugar} g</div>
+
+          <div>食物繊維</div>
+          <div className="text-right">{food.fiber} g</div>
+        </div>
+
+        {/* 備考 */}
+        <div className="border-t pt-3 whitespace-pre-line">
+          <strong className="block mb-1">備考</strong>
+          内容量：{food.portion_value}
+          {food.unit_type}
+          {"\n"}
+          データ元：{food.source}
+          {"\n"}
+          {food.note}
+        </div>
+      </CardContent>
+      <CardFooter>
+        <FoodModal
+          open={open}
+          setOpen={setOpen}
+          modalTriggerText="編集"
+          headerText="食品編集"
+          component={
+            <Form
+              food={food}
+              method="patch"
+              action={`/foods/${food.id}`}
+              onSuccess={handleModalClose}
+            />
+          }
+          footerComponent={
+            <Button
+              form="food_form"
+              type="submit"
+              className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
+            >
+              更新
+            </Button>
+          }
+        />
+        <div className="inline-block ml-2">
+          <Link
+            href={`/foods/${food.id}`}
+            as="button"
+            method="delete"
+            className="mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium"
+          >
+            食品を消去
+          </Link>
+        </div>
+      </CardFooter>
+    </Card>
+  );
+}
