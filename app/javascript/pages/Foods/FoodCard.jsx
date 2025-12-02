@@ -8,12 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import food_image_path from "../../assets/noimage.png";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import HoverRevealText from "@/components/HoverRevealText.jsx";
 
 export default function FoodCard({ food }) {
