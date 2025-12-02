@@ -10,8 +10,9 @@ import {
 import { useForm, usePage } from "@inertiajs/react";
 import { Label } from "@/components/ui/label.jsx";
 import { useFoodEnums } from "./useFoodEnums.jsx";
+import { Button } from "@/components/ui/button.jsx";
 
-export default function FoodForm({ food, method, action, onSuccess }) {
+export default function FoodForm({ food, method, action, submitText = "Add" }) {
   const { unit_types, sources } = useFoodEnums();
 
   const form = useForm({
@@ -30,25 +31,23 @@ export default function FoodForm({ food, method, action, onSuccess }) {
   });
 
   const handleSubmit = (event) => {
+    form.transform((data) => ({
+      ...data,
+      carbs: parseFloat(form.data.sugar) + parseFloat(form.data.fiber),
+      source: "manual",
+    }));
+    console.log(form.data);
+
     event.preventDefault();
     if (method === "post") {
-      form.post(action, {
-        onSuccess: () => {
-          onSuccess();
-        },
-      });
+      form.post(action);
     } else if (method === "patch") {
-      form.patch(action, {
-        onSuccess: () => {
-          onSuccess();
-        },
-      });
+      form.patch(action);
     }
   };
 
   return (
     <form
-      id="food_form"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
@@ -60,19 +59,21 @@ export default function FoodForm({ food, method, action, onSuccess }) {
         </Label>
         <Input
           id="name"
+          className="bg-white"
           value={form.data.name}
           onChange={(e) => form.setData("name", e.target.value)}
         />
       </div>
 
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-1">
+      <div className="flex justify-between gap-2">
+        <div className="flex flex-1 flex-col gap-1">
           <Label htmlFor="portion_value" className="text-slate-700">
             分量
           </Label>
           <Input
             id="portion_value"
             type="number"
+            className="bg-white"
             value={form.data.portion_value}
             onChange={(e) => form.setData("portion_value", e.target.value)}
           />
@@ -86,7 +87,7 @@ export default function FoodForm({ food, method, action, onSuccess }) {
             value={form.data.unit_type}
             onValueChange={(val) => form.setData("unit_type", val)}
           >
-            <SelectTrigger id="unit_type">
+            <SelectTrigger id="unit_type" className="bg-white">
               <SelectValue placeholder="Select unit" />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -100,34 +101,23 @@ export default function FoodForm({ food, method, action, onSuccess }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <InputField label="kcal" field="kcal" form={form} />
-        <InputField label="protein" field="protein" form={form} />
-        <InputField label="fat" field="fat" form={form} />
-        <InputField label="carbs" field="carbs" form={form} />
-        <InputField label="sugar" field="sugar" form={form} />
-        <InputField label="fiber" field="fiber" form={form} />
-      </div>
+      <InputField label="kcal" field="kcal" form={form}>
+        カロリー
+      </InputField>
 
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="source" className="text-slate-700">
-          データ元
-        </Label>
-        <Select
-          value={form.data.source}
-          onValueChange={(val) => form.setData("source", val)}
-        >
-          <SelectTrigger id="source">
-            <SelectValue placeholder="Select source" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            {sources.map((s) => (
-              <SelectItem key={s} value={s}>
-                {s}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="grid grid-cols-2 gap-4">
+        <InputField label="protein" field="protein" form={form}>
+          プロテイン
+        </InputField>
+        <InputField label="fat" field="fat" form={form}>
+          脂質
+        </InputField>
+        <InputField label="sugar" field="sugar" form={form}>
+          糖質
+        </InputField>
+        <InputField label="fiber" field="fiber" form={form}>
+          食物繊維
+        </InputField>
       </div>
 
       <div className="flex flex-col gap-1">
@@ -136,6 +126,7 @@ export default function FoodForm({ food, method, action, onSuccess }) {
         </Label>
         <Input
           id="jan_code"
+          className="bg-white"
           value={form.data.jan_code}
           onChange={(e) => form.setData("jan_code", e.target.value)}
         />
@@ -147,23 +138,33 @@ export default function FoodForm({ food, method, action, onSuccess }) {
         </Label>
         <Textarea
           id="note"
+          className="bg-white"
           value={form.data.note}
           onChange={(e) => form.setData("note", e.target.value)}
         />
       </div>
+
+      <Button
+        disabled={form.processing}
+        className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
+        type="submit"
+      >
+        {form.processing ? "処理中..." : submitText}
+      </Button>
     </form>
   );
 }
 
-function InputField({ label, field, form }) {
+function InputField({ children, label, field, form }) {
   return (
     <div className="flex flex-col gap-1">
       <Label htmlFor={label} className="text-slate-700">
-        {label}
+        {children}
       </Label>
       <Input
         id={label}
         type="number"
+        className="bg-white"
         value={form.data[field]}
         onChange={(e) => form.setData(field, e.target.value)}
       />

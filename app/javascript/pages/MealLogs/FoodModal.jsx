@@ -9,6 +9,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.jsx";
 
+{
+  /* <FoodModal
+  open={open}
+  setOpen={setOpen}
+  modalTriggerText=""
+  headerText=""
+  headerDescription=""
+  component={}
+  footerComponent={}
+/>; */
+}
+
 function FoodModal({
   open,
   setOpen,
