@@ -1,95 +1,46 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { CardFooter } from "@/components/ui/card.jsx";
-import FoodModal from "./FoodModal.jsx";
-import { useState } from "react";
-import { Button } from "@/components/ui/button.jsx";
 import { Link } from "@inertiajs/react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import food_image_path from "../../assets/noimage.png";
+import HoverRevealText from "@/components/HoverRevealText.jsx";
 
-import Form from "./Form.jsx";
-
-export default function Food({ food }) {
-  const [open, setOpen] = useState(false);
-  const handleModalClose = () => {
-    setOpen(false);
-  };
+export default function FoodCard({ food }) {
   return (
-    <Card className="max-w-md mx-auto">
+    <Card className="bg-white w-full">
       {/* タイトル */}
-      <CardHeader className="text-center">
-        <CardTitle className="text-xl font-bold">
-          {food.name} {food.portion_value}
-          {food?.unit_type}
+      <CardHeader>
+        <CardTitle className="text-center text-lg font-semibold ">
+          <HoverRevealText>
+            {food.name} {food.portion_value} {food.unit_type}
+          </HoverRevealText>
+          <h2>{food.kcal} kcal</h2>
         </CardTitle>
       </CardHeader>
 
-      {/* 内容 */}
-      <CardContent className="space-y-4 text-sm">
-        {/* 栄養成分表 */}
-        <div className="grid grid-cols-2 gap-y-2">
-          <div>カロリー</div>
-          <div className="text-right">{food.kcal} kcal</div>
-
-          <div>タンパク質</div>
-          <div className="text-right">{food.protein} g</div>
-
-          <div>脂質</div>
-          <div className="text-right">{food.fat} g</div>
-
-          <div>炭水化物</div>
-          <div className="text-right">{food.carbs} g</div>
-
-          <div>糖質</div>
-          <div className="text-right">{food.sugar} g</div>
-
-          <div>食物繊維</div>
-          <div className="text-right">{food.fiber} g</div>
-        </div>
-
-        {/* 備考 */}
-        <div className="border-t pt-3 whitespace-pre-line">
-          <strong className="block mb-1">備考</strong>
-          内容量：{food.portion_value}
-          {food.unit_type}
-          {"\n"}
-          データ元：{food.source}
-          {"\n"}
-          {food.note}
+      {/* 画像 */}
+      <CardContent>
+        <div className="w-full aspect-square overflow-hidden bg-gray-50">
+          <img
+            src={food_image_path}
+            alt="food"
+            className="w-full h-full object-cover"
+          />
         </div>
       </CardContent>
-      <CardFooter>
-        <FoodModal
-          open={open}
-          setOpen={setOpen}
-          modalTriggerText="編集"
-          headerText="食品編集"
-          component={
-            <Form
-              food={food}
-              method="patch"
-              action={`/foods/${food.id}`}
-              onSuccess={handleModalClose}
-            />
-          }
-          footerComponent={
-            <Button
-              form="food_form"
-              type="submit"
-              className="w-full mt-2 bg-sky-100 hover:bg-sky-200 text-slate-700 rounded-lg shadow-md"
-            >
-              更新
-            </Button>
-          }
-        />
-        <div className="inline-block ml-2">
-          <Link
-            href={`/foods/${food.id}`}
-            as="button"
-            method="delete"
-            className="mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium"
-          >
-            食品を消去
-          </Link>
-        </div>
+
+      {/* ボタン：狭い時は縦並び */}
+      <CardFooter className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <Button className="w-full border-2">食事追加</Button>
+
+        <Button asChild variant="outline" className="w-full">
+          <Link href={`/foods/${food.id}`}>詳細</Link>
+        </Button>
       </CardFooter>
     </Card>
   );
