@@ -36,9 +36,11 @@ export default function FoodCard({ food }) {
 
       {/* ボタン：狭い時は縦並び */}
       <CardFooter className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Button className="w-full border-2">食事追加</Button>
+        <Button className=" bg-slate-600 text-white font-medium">
+          食事追加
+        </Button>
 
-        <Button asChild variant="outline" className="w-full">
+        <Button asChild variant="outline" className="bg-whitefont-medium">
           <Link href={`/foods/${food.id}`}>詳細</Link>
         </Button>
       </CardFooter>

@@ -15,13 +15,7 @@ export default function Index({ foods, flash }) {
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="font-bold text-4xl">Foods</h1>
-          <Link
-            href="/foods/new"
-            className="rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium"
-          >
-            New food
-          </Link>
+          <h1 className="font-bold text-3xl">食品一覧</h1>
         </div>
 
         {/* タイルグリッド：画面ごとに列数を変更 */}

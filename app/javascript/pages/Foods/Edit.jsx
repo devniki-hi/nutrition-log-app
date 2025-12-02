@@ -9,7 +9,7 @@ export default function Show({ food, flash }) {
     <>
       <Head title={`Food Edit`} />
 
-      <div className="w-full px-12 pt-8">
+      <div className="w-full px-12 py-8">
         {flash.notice && (
           <p className="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block">
             {flash.notice}
@@ -17,12 +17,8 @@ export default function Show({ food, flash }) {
         )}
 
         <div className="flex justify-between mb-6">
-          <HoverRevealText
-            className="w-1/2"
-            textClassName="font-bold md:text-3xl"
-          >
-            {food.name}
-          </HoverRevealText>
+          {/* Header */}
+          <h1 className="font-bold text-3xl">食品編集</h1>
           <div className=" flex gap-2">
             <Button
               form="food_form"
