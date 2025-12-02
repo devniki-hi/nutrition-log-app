@@ -2,11 +2,12 @@ import HoverRevealText from "@/components/HoverRevealText.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Head, Link } from "@inertiajs/react";
 import food_image_path from "../../assets/noimage.png";
+import FoodForm from "./Form.jsx";
 
 export default function Show({ food, flash }) {
   return (
     <>
-      <Head title={`Food Show`} />
+      <Head title={`Food Edit`} />
 
       <div className="w-full px-12 pt-8">
         {flash.notice && (
@@ -23,22 +24,20 @@ export default function Show({ food, flash }) {
             {food.name}
           </HoverRevealText>
           <div className=" flex gap-2">
-            <Button asChild>
-              <Link
-                href={`/foods/${food.id}/edit`}
-                className=" bg-slate-600 text-white font-medium"
-              >
-                編集
-              </Link>
+            <Button
+              form="food_form"
+              type="submit"
+              className=" bg-slate-600 text-white font-medium"
+            >
+              保存
             </Button>
 
-            <Button asChild>
+            <Button variant="outline" asChild>
               <Link
                 href={`/foods/${food.id}`}
-                method="delete"
-                className=" bg-red-400 text-white font-medium"
+                className=" bg-white text-black font-medium"
               >
-                削除
+                戻る
               </Link>
             </Button>
           </div>
@@ -54,36 +53,11 @@ export default function Show({ food, flash }) {
                 className="w-full h-full object-contain"
               />
             </div>
-
-            <Button
-              variant="outline"
-              className="
-                　bg-sky-100 font-bold
-                    m-4 md:m-12 
-                    w-9/12
-                    text-base
-                    md:text-xl
-                "
-            >
-              食事に追加
-            </Button>
           </div>
 
-          {/* 右：Food詳細 */}
+          {/* 右：編集 */}
           <div className="md:w-1/2 bg-sky-50 shadow-md rounded-lg p-4 h-auto">
-            <h2 className="text-lg font-semibold mb-4">栄養情報</h2>
-
-            <div className="space-y-3">
-              <InfoRow label="分量" value={`${food.portion_value} g`} />
-              <InfoRow label="kcal" value={`${food.kcal} kcal`} />
-              <InfoRow label="たんぱく質" value={`${food.protein} g`} />
-              <InfoRow label="脂質" value={`${food.fat} g`} />
-              <InfoRow label="炭水化物" value={`${food.carbs} g`} />
-              <InfoRow label="糖質" value={`${food.sugar} g`} />
-              <InfoRow label="食物繊維" value={`${food.fiber} g`} />
-              <InfoRow label="Janコード" value={food.jan_code} />
-              <InfoRow label="メモ" value={food.note} />
-            </div>
+            <FoodForm food={food} method="patch" action={`/foods/${food.id}`} />
           </div>
         </div>
       </div>
