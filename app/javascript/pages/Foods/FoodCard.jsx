@@ -16,7 +16,7 @@ export default function FoodCard({ food }) {
       {/* タイトル */}
       <CardHeader>
         <CardTitle className="text-center text-lg font-semibold ">
-          <HoverRevealText>
+          <HoverRevealText className="w-full flex justify-center">
             {food.name} {food.portion_value} {food.unit_type}
           </HoverRevealText>
           <h2>{food.kcal} kcal</h2>
