@@ -13,8 +13,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
+import MealModal from "../MealLogs/ModalComponents/MealModal.jsx";
+import MealForm from "../MealLogs/ModalComponents/MealForm.jsx";
+import { useState } from "react";
 
 export default function Show({ food, flash }) {
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [mealFood, setMealFood] = useState(null);
+
   return (
     <>
       <Head title={`Food Show`} />
@@ -95,6 +101,10 @@ export default function Show({ food, flash }) {
                     text-base
                     md:text-xl
                 "
+              onClick={() => {
+                setOpenAddModal(true);
+                setMealFood(food);
+              }}
             >
               食事に追加
             </Button>
@@ -118,6 +128,35 @@ export default function Show({ food, flash }) {
           </div>
         </div>
       </div>
+
+      {/* ===========================
+          追加モーダル（1個だけ）
+      ============================ */}
+      <MealModal
+        open={openAddModal}
+        setOpen={setOpenAddModal}
+        modalTriggerComponent={null}
+        component={
+          mealFood && (
+            <MealForm
+              food={mealFood}
+              method="post"
+              action="/meal-logs"
+              onSuccess={() => setOpenAddModal(false)}
+            />
+          )
+        }
+        footerComponent={
+          <div className="flex gap-3 mt-4">
+            <Button
+              className=" bg-slate-600 text-white font-medium"
+              form="meal_form"
+            >
+              追加
+            </Button>
+          </div>
+        }
+      />
     </>
   );
 }
