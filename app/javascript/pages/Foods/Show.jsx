@@ -12,6 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
 
 export default function Show({ food, flash }) {
   return (
@@ -53,6 +54,9 @@ export default function Show({ food, flash }) {
                   <AlertDialogTitle>
                     食品を削除してもよろしいでしょうか？
                   </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    この操作は取り消せません。本当に削除しますか？
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>キャンセル</AlertDialogCancel>
