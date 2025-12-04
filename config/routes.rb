@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :foods
-  resources :meal_logs, path: "meal-logs", only: [:index, :create, :update, :destroy]
+  resources :meal_logs, path: "meal-logs", only: [ :index, :create, :update, :destroy ]
   devise_for :users,
               skip: [ :sessions, :registrations ],
               controllers: {

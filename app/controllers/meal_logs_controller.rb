@@ -1,6 +1,6 @@
 class MealLogsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meal_log, only: [:update, :destroy]
+  before_action :set_meal_log, only: [ :update, :destroy ]
 
   # GET /meal-logs
   def index
@@ -10,7 +10,7 @@ class MealLogsController < ApplicationController
                             .where(logged_at: date.all_day)
                             .order(logged_at: :asc)
 
-    
+
     # # intake_rate が変わるため Food から PFC 計算
     # rate = (meal_log.intake_rate.to_f / 100.0)
     # food = meal_log.food

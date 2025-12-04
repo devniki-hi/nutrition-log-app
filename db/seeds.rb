@@ -20,7 +20,7 @@ other_users = []
   )
 end
 
-users = [test_user] + other_users
+users = [ test_user ] + other_users
 
 
 # ============================================
@@ -110,7 +110,7 @@ foods = foods.map { |data| Food.create!(data) }
 # Q3: 1日3〜7件、Q5: 5日分、Q7: ランダム
 # ============================================
 
-intake_rates = [20, 50, 70, 100, 200, 300]
+intake_rates = [ 20, 50, 70, 100, 200, 300 ]
 
 users.each do |user|
   (0..4).each do |i|
