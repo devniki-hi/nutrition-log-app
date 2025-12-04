@@ -22,5 +22,4 @@ class MealLog < ApplicationRecord
   def intake_carbs
     food.carbs.to_f * rate
   end
-  
 end

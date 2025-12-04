@@ -14,7 +14,7 @@ class MealLogsController < ApplicationController
       date: date,
       meal_logs: meal_logs.as_json(
         include: { food: {} },
-        methods: [:intake_kcal, :intake_protein, :intake_fat, :intake_carbs]
+        methods: [ :intake_kcal, :intake_protein, :intake_fat, :intake_carbs ]
         )
     }
   end
