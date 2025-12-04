@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  food: one
+  logged_at: 2025-12-03 04:17:46
+  intake_kcal: 1.5
+  intake_protein: 1.5
+  intake_fat: 1.5
+  intake_carbs: 1.5
+  intake_rate: 1
+
+two:
+  user: two
+  food: two
+  logged_at: 2025-12-03 04:17:46
+  intake_kcal: 1.5
+  intake_protein: 1.5
+  intake_fat: 1.5
+  intake_carbs: 1.5
+  intake_rate: 1

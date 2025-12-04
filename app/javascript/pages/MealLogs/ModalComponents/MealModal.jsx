@@ -21,10 +21,10 @@ import {
 />; */
 }
 
-function FoodModal({
+function MealModal({
   open,
   setOpen,
-  modalTriggerText = "Open",
+  modalTriggerComponent,
   headerText,
   headerDescription = "埋めてください",
   component,
@@ -32,14 +32,7 @@ function FoodModal({
 }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          className="rounded-lg px-5 bg-blue-600 text-white block font-medium"
-          onClick={() => setOpen(true)}
-        >
-          {modalTriggerText}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{modalTriggerComponent}</DialogTrigger>
       <DialogContent className=" bg-white">
         <DialogHeader>
           <DialogTitle>{headerText}</DialogTitle>
@@ -52,4 +45,4 @@ function FoodModal({
   );
 }
 
-export default FoodModal;
+export default MealModal;
