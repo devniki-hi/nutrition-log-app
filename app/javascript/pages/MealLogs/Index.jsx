@@ -48,8 +48,11 @@ function Index({ date, meal_logs }) {
               }}
             >
               <p>{log.food.name}</p>
-              <p>{log.food.kcal}</p>
               <p>{log.logged_at}</p>
+              <p>{log.intake_kcal} kcal</p>
+              <p>{log.intake_protein} g</p>
+              <p>{log.intake_fat} g</p>
+              <p>{log.intake_carbs} g</p>
             </div>
           ))}
         </div>

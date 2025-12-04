@@ -10,19 +10,12 @@ class MealLogsController < ApplicationController
                             .where(logged_at: date.all_day)
                             .order(logged_at: :asc)
 
-
-    # # intake_rate が変わるため Food から PFC 計算
-    # rate = (meal_log.intake_rate.to_f / 100.0)
-    # food = meal_log.food
-
-    # meal_log.intake_kcal    = food.kcal    * rate
-    # meal_log.intake_protein = food.protein * rate
-    # meal_log.intake_fat     = food.fat     * rate
-    # meal_log.intake_carbs   = food.carbs   * rate
-
     render inertia: "MealLogs/Index", props: {
       date: date,
-      meal_logs: meal_logs.as_json(include: { food: {} })
+      meal_logs: meal_logs.as_json(
+        include: { food: {} },
+        methods: [:intake_kcal, :intake_protein, :intake_fat, :intake_carbs]
+        )
     }
   end
 
