@@ -1,7 +1,14 @@
 import { Head, Link } from "@inertiajs/react";
 import FoodCard from "./FoodCard.jsx";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import MealModal from "../MealLogs/ModalComponents/MealModal.jsx";
+import MealForm from "../MealLogs/ModalComponents/MealForm.jsx";
 
 export default function Index({ foods, flash }) {
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [mealFood, setMealFood] = useState(null);
+
   return (
     <>
       <Head title="Foods" />
@@ -36,11 +43,62 @@ export default function Index({ foods, flash }) {
         >
           {foods.map((food) => (
             <div key={food.id}>
-              <FoodCard food={food} />
+              <FoodCard
+                food={food}
+                footerComponent={
+                  <>
+                    <Button
+                      className=" bg-slate-600 text-white font-medium"
+                      onClick={() => {
+                        setOpenAddModal(true);
+                        setMealFood(food);
+                      }}
+                    >
+                      食事追加
+                    </Button>
+
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="bg-whitefont-medium"
+                    >
+                      <Link href={`/foods/${food.id}`}>詳細</Link>
+                    </Button>
+                  </>
+                }
+              />
             </div>
           ))}
         </div>
       </div>
+      {/* ===========================
+          追加モーダル（1個だけ）
+      ============================ */}
+      <MealModal
+        open={openAddModal}
+        setOpen={setOpenAddModal}
+        modalTriggerComponent={null}
+        component={
+          mealFood && (
+            <MealForm
+              food={mealFood}
+              method="post"
+              action="/meal-logs"
+              onSuccess={() => setOpenAddModal(false)}
+            />
+          )
+        }
+        footerComponent={
+          <div className="flex gap-3 mt-4">
+            <Button
+              className=" bg-slate-600 text-white font-medium"
+              form="meal_form"
+            >
+              追加
+            </Button>
+          </div>
+        }
+      />
     </>
   );
 }

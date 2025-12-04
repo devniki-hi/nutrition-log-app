@@ -17,10 +17,7 @@ import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
 
 function Index({ date, meal_logs }) {
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [openAddModal, setOpenAddModal] = useState(false);
-
   const [editingLog, setEditingLog] = useState(null);
-
   const grouped = meal_logs.reduce((acc, log) => {
     const hour = new Date(log.logged_at).getHours();
     const key = `${hour}:00`;
@@ -79,7 +76,10 @@ function Index({ date, meal_logs }) {
         footerComponent={
           editingLog && (
             <div className="flex gap-3 mt-4">
-              <Button className="flex-1 rounded-full" form="meal_form">
+              <Button
+                className=" bg-slate-600 text-white font-medium"
+                form="meal_form"
+              >
                 保存
               </Button>
               <Button asChild>
@@ -117,39 +117,6 @@ function Index({ date, meal_logs }) {
               </Button>
             </div>
           )
-        }
-      />
-
-      {/* ===========================
-          追加モーダル（1個だけ）
-      ============================ */}
-      <MealModal
-        open={openAddModal}
-        setOpen={setOpenAddModal}
-        modalTriggerComponent={
-          <Button
-            className="rounded-lg px-5 bg-blue-600 text-white block font-medium"
-            onClick={() => setOpenAddModal(true)}
-          >
-            食事ログを追加
-          </Button>
-        }
-        component={
-          meal_logs.length > 0 && (
-            <MealForm
-              food={meal_logs[0].food}
-              method="post"
-              action="/meal-logs"
-              onSuccess={() => setOpenAddModal(false)}
-            />
-          )
-        }
-        footerComponent={
-          <div className="flex gap-3 mt-4">
-            <Button className="flex-1 rounded-full" form="meal_form">
-              追加
-            </Button>
-          </div>
         }
       />
     </>

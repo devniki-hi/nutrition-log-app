@@ -1,4 +1,3 @@
-import { Link } from "@inertiajs/react";
 import {
   Card,
   CardContent,
@@ -10,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import food_image_path from "../../assets/noimage.png";
 import HoverRevealText from "@/components/HoverRevealText.jsx";
 
-export default function FoodCard({ food }) {
+export default function FoodCard({ food, footerComponent }) {
   return (
     <Card className="bg-white w-full">
       {/* タイトル */}
@@ -36,13 +35,7 @@ export default function FoodCard({ food }) {
 
       {/* ボタン：狭い時は縦並び */}
       <CardFooter className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Button className=" bg-slate-600 text-white font-medium">
-          食事追加
-        </Button>
-
-        <Button asChild variant="outline" className="bg-whitefont-medium">
-          <Link href={`/foods/${food.id}`}>詳細</Link>
-        </Button>
+        {footerComponent}
       </CardFooter>
     </Card>
   );
