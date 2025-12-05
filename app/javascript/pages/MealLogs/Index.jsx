@@ -3,6 +3,7 @@ import MealForm from "./ModalComponents/MealForm.jsx";
 import MealModal from "./ModalComponents/MealModal.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Link } from "@inertiajs/react";
+import TimelineContainer from "./TimelineComponents/TimelineContainer.jsx";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,53 +19,26 @@ import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
 function Index({ date, meal_logs }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editingLog, setEditingLog] = useState(null);
-  const grouped = meal_logs.reduce((acc, log) => {
-    const hour = new Date(log.logged_at).getHours();
-    const key = `${hour}:00`;
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(log);
-    return acc;
-  }, {});
+
+  const handleSelectMeal = (log) => {
+    setEditingLog(log);
+    setOpenEditModal(true);
+  };
 
   return (
     <>
-      <h1>食事ログ</h1>
-      <p>{date}</p>
-
       {/* ===========================
-          食事ログ一覧
+          Timeline
       ============================ */}
-      {Object.entries(grouped).map(([time, logs]) => (
-        <div key={time} className="flex">
-          <h2>{time}</h2>
-
-          {logs.map((log) => (
-            <div
-              key={log.id}
-              className="cursor-pointer"
-              onClick={() => {
-                setEditingLog(log);
-                setOpenEditModal(true);
-              }}
-            >
-              <p>{log.food.name}</p>
-              <p>{log.logged_at}</p>
-              <p>{log.intake_kcal} kcal</p>
-              <p>{log.intake_protein} g</p>
-              <p>{log.intake_fat} g</p>
-              <p>{log.intake_carbs} g</p>
-            </div>
-          ))}
-        </div>
-      ))}
+      <TimelineContainer mealLogs={meal_logs} onSelectMeal={handleSelectMeal} />
 
       {/* ===========================
-          編集モーダル（1個だけ）
+          編集モーダル
       ============================ */}
       <MealModal
         open={openEditModal}
         setOpen={setOpenEditModal}
-        modalTriggerComponent={null} // 外で開くので null
+        modalTriggerComponent={null}
         component={
           editingLog && (
             <MealForm
@@ -80,25 +54,24 @@ function Index({ date, meal_logs }) {
           editingLog && (
             <div className="flex gap-3 mt-4">
               <Button
-                className=" bg-slate-600 text-white font-medium"
+                className="bg-slate-600 text-white font-medium"
                 form="meal_form"
               >
                 保存
               </Button>
+
               <Button asChild>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button className=" bg-red-400 text-white font-medium">
+                    <Button className="bg-red-400 text-white font-medium">
                       削除
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        ログを削除してもよろしいでしょうか？
-                      </AlertDialogTitle>
+                      <AlertDialogTitle>ログを削除しますか？</AlertDialogTitle>
                       <AlertDialogDescription>
-                        この操作は取り消せません。本当に削除しますか？
+                        この操作は取り消せません。
                       </AlertDialogDescription>
                     </AlertDialogHeader>
 
@@ -108,7 +81,7 @@ function Index({ date, meal_logs }) {
                         <Link
                           href={`/meal-logs/${editingLog.id}`}
                           method="delete"
-                          className=" bg-red-400 text-white font-medium"
+                          className="bg-red-400 text-white font-medium"
                           onClick={() => setOpenEditModal(false)}
                         >
                           削除
