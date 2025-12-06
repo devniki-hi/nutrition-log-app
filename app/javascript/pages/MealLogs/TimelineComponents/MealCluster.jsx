@@ -1,38 +1,42 @@
 import React, { useState } from "react";
 import MealTagList from "./MealTagList.jsx";
+import MealClusterExpanded from "./MealClusterExpanded.jsx";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button.jsx";
 
 function MealCluster({ mealLogs, onSelectMeal }) {
-  const [isClickedCluster, setIsClickedCluster] = useState(false);
+  const [isClickCluster, setIsClickCluster] = useState(false);
+
   return (
     <div className="bg-blue-50 mx-2 rounded-md border-2">
       {/* MealCluster */}
-      {isClickedCluster ? (
+      {isClickCluster && mealLogs.length !== 0 ? (
         // クラスターが開いている
-        <div
-          className="py-30"
-          onClick={() => {
-            setIsClickedCluster(false);
-          }}
-        >
-          {mealLogs.length === 0 && (
-            <span className="text-gray-400 text-sm">ログなし</span>
-          )}
+        <div className="py-30 mx-2 relative">
+          {/* 閉じるボタン（右上固定） */}
+          <Button
+            type="button"
+            size="icon"
+            variant="ghost"
+            className="absolute top-3 right-3"
+            onClick={() => {
+              setIsClickCluster(!isClickCluster);
+            }}
+          >
+            <X className="w-4 h-4" />
+          </Button>
 
-          {mealLogs.map((log) => (
-            <span
-              key={log.id}
-              className="underline cursor-pointer mr-2 text-sm"
-              onClick={() => onSelectMeal?.(log)}
-            >
-              {log.food.name}
-            </span>
-          ))}
+          <MealClusterExpanded
+            mealLogs={mealLogs}
+            onSelectMeal={onSelectMeal}
+          />
         </div>
       ) : (
         // クラスターが閉じている
         <div
+          className="mx-2"
           onClick={() => {
-            setIsClickedCluster(true);
+            setIsClickCluster(!isClickCluster);
           }}
         >
           <MealTagList mealLogs={mealLogs} />
