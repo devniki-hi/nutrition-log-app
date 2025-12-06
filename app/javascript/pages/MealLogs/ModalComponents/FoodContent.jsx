@@ -12,8 +12,9 @@ export default function FoodContent({ food }) {
       {/* タイトル */}
       <CardHeader className="text-center">
         <CardTitle className="text-xl font-bold">
-          {food.name} {food.portion_value}
-          {food?.unit_type}
+          {food.name}
+          <br />
+          {food.portion_value} {food?.unit_type}
         </CardTitle>
       </CardHeader>
 
