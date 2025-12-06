@@ -1,8 +1,8 @@
 // TimelineRow.jsx
 import React, { useState } from "react";
+import MealCluster from "./MealCluster.jsx";
 
-function TimelineRow({ hour, mealLogs, onSelectMeal, isStartEdge, isEndEdge }) {
-  const [isClickedCluster, setIsClickedCluster] = useState(false);
+function TimelineRow({ hour, mealLogs, onSelectMeal }) {
   return (
     <div className="flex">
       {/* 左カラム：時間 */}
@@ -15,51 +15,7 @@ function TimelineRow({ hour, mealLogs, onSelectMeal, isStartEdge, isEndEdge }) {
           <div className="w-4 h-4 rounded-full bg-slate-600"></div>
           <div className="w-7 h-1 bg-slate-600"></div>
         </div>
-
-        {/* MealCluster */}
-        {isClickedCluster ? (
-          <div
-            className="bg-blue-50 mx-2 py-20 rounded-md border-2"
-            onClick={() => {
-              setIsClickedCluster(false);
-            }}
-          >
-            {mealLogs.length === 0 && (
-              <span className="text-gray-400 text-sm">ログなし</span>
-            )}
-
-            {mealLogs.map((log) => (
-              <span
-                key={log.id}
-                className="underline cursor-pointer mr-2 text-sm"
-                onClick={() => onSelectMeal?.(log)}
-              >
-                {log.food.name}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <div
-            className="bg-blue-50 mx-2 py-2 rounded-md border-2"
-            onClick={() => {
-              setIsClickedCluster(true);
-            }}
-          >
-            {mealLogs.length === 0 && (
-              <span className="text-gray-400 text-sm">ログなし</span>
-            )}
-
-            {mealLogs.map((log) => (
-              <span
-                key={log.id}
-                className="underline cursor-pointer mr-2 text-sm"
-                onClick={() => onSelectMeal?.(log)}
-              >
-                {log.food.name}
-              </span>
-            ))}
-          </div>
-        )}
+        <MealCluster mealLogs={mealLogs} onSelectMeal={onSelectMeal} />
       </div>
     </div>
   );
