@@ -104,7 +104,7 @@ production:
     migrations_paths: db/cable_migrate
 
 deploy:
-  <<: \*default
+  <<: *default
   database: <%= ENV["DB_NAME"] %>
   username: <%= ENV["DB_USER"] %>
   password: <%= ENV["DB_PASSWORD"] %>
