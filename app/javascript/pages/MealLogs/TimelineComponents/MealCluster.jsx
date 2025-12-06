@@ -12,7 +12,7 @@ function MealCluster({ mealLogs, onSelectMeal }) {
       {/* MealCluster */}
       {isClickCluster && mealLogs.length !== 0 ? (
         // クラスターが開いている
-        <div className="py-30 mx-2 relative">
+        <div className="py-10 mx-2 relative">
           {/* 閉じるボタン（右上固定） */}
           <Button
             type="button"
