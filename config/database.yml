@@ -102,3 +102,11 @@ production:
     <<: *primary_production
     database: nutrition_log_app_production_cable
     migrations_paths: db/cable_migrate
+
+deploy:
+  <<: \*default
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
+  port: 5432
