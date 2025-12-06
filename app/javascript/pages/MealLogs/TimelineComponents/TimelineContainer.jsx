@@ -21,7 +21,7 @@ function TimelineContainer({ mealLogs, onSelectMeal }) {
             <div key="startEdge" className="flex">
               <div className="w-20 flex items-center text-xl " />
               <div className="flex-1 py-8 relative pl-6 mr-4 border-l-4 border-slate-600">
-                <div className="absolute top-0  -left-[10px]">
+                <div className="absolute top-0  -left-2.5">
                   <div className="w-4 h-4 rounded-full bg-slate-600"></div>
                 </div>
               </div>
@@ -38,7 +38,7 @@ function TimelineContainer({ mealLogs, onSelectMeal }) {
             <div key="endEdge" className="flex">
               <div className="w-20 flex items-center text-xl " />
               <div className="flex-1 py-8 relative pl-6 mr-4 border-l-4 border-slate-600">
-                <div className="absolute bottom-0  -left-[10px]">
+                <div className="absolute bottom-0  -left-2.5">
                   <div className="w-4 h-4 rounded-full bg-slate-600"></div>
                 </div>
               </div>

@@ -31,7 +31,6 @@ function MealCluster({ mealLogs, onSelectMeal }) {
       ) : (
         // クラスターが閉じている
         <div
-          className="py-2 "
           onClick={() => {
             setIsClickedCluster(true);
           }}

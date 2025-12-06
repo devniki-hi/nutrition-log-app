@@ -11,7 +11,7 @@ function TimelineRow({ hour, mealLogs, onSelectMeal }) {
       {/* 右カラム */}
       <div className="flex-1 py-8 relative pl-6 mr-4 border-l-4 border-slate-600">
         {/* ★ 中央の ●➖（すべての行に表示） */}
-        <div className="absolute top-1/2 -translate-y-1/2 -left-[10px] flex items-center">
+        <div className="absolute top-1/2 -translate-y-1/2 -left-2.5 flex items-center">
           <div className="w-4 h-4 rounded-full bg-slate-600"></div>
           <div className="w-7 h-1 bg-slate-600"></div>
         </div>
