@@ -21,9 +21,8 @@ function formatForInput(value) {
 export function DateTimePicker({ form }) {
   const inputValue = formatForInput(form.data.logged_at);
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm font-semibold text-slate-700">時間</p>
-      <Label htmlFor="expired_at">Expired At</Label>
+    <div className="flex flex-col">
+      <p className="text-sm font-semibold text-slate-700 my-1">日付時間</p>
       <Input
         id="expired_at"
         type="datetime-local"

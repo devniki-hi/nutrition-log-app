@@ -93,9 +93,8 @@ export default function Show({ food, flash }) {
             </div>
 
             <Button
-              variant="outline"
               className="
-                　bg-sky-100 font-bold
+                　bg-slate-600 text-white font-bold
                     m-4 md:m-12 
                     w-9/12
                     text-base
@@ -106,7 +105,7 @@ export default function Show({ food, flash }) {
                 setMealFood(food);
               }}
             >
-              食事に追加
+              食事を記録する
             </Button>
           </div>
 
@@ -152,7 +151,7 @@ export default function Show({ food, flash }) {
               className=" bg-slate-600 text-white font-medium"
               form="meal_form"
             >
-              追加
+              記録する
             </Button>
           </div>
         }

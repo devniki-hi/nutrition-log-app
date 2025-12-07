@@ -1,22 +1,36 @@
 // TimelineContainer.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import TimelineRow from "./TimelineRow";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.jsx";
 
-function TimelineContainer({ mealLogs, onSelectMeal }) {
-  // 0〜23 の 24 個の空配列を生成
+function TimelineContainer({ mealLogs, onSelectMeal, scrollToHour }) {
   const grouped = Array.from({ length: 24 }, () => []);
 
-  // mealLogs を対応する hour に push
   mealLogs.forEach((log) => {
     const hour = new Date(log.logged_at).getHours();
     grouped[hour].push(log);
   });
 
+  const scrollTargetHour = scrollToHour ?? new Date().getHours();
+
+  const scrollTargetRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
+    }
+  }, [scrollTargetHour]);
+
   return (
-    <ScrollArea className="h-screen p-4 m-4 bg-white border rounded-md">
+    <ScrollArea className="h-screen p-4 my-2 bg-white border rounded-md">
       {grouped.map((logs, hour) => (
-        <div key={hour}>
+        <div
+          key={hour}
+          ref={hour === scrollTargetHour ? scrollTargetRef : null}
+        >
           {hour === 0 && (
             <div key="startEdge" className="flex">
               <div className="w-20 flex items-center text-xl " />
@@ -28,7 +42,7 @@ function TimelineContainer({ mealLogs, onSelectMeal }) {
             </div>
           )}
           <TimelineRow
-            hour={`${String(hour).padStart(2, "0")}:00`} // ← 修正！！
+            hour={`${String(hour).padStart(2, "0")}:00`}
             mealLogs={logs}
             onSelectMeal={onSelectMeal}
             isStartEdge={hour === 0}

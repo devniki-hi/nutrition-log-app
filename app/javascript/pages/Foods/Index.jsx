@@ -23,21 +23,21 @@ export default function Index({ foods, flash }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-3xl">食品一覧</h1>
+          <Button asChild className="bg-slate-600 text-white font-medium">
+            <Link href="/foods/new">食品を追加する</Link>
+          </Button>
         </div>
 
         {/* タイルグリッド：画面ごとに列数を変更 */}
-        {/*
-          sm: 1列（スマホ） → 1×16
-          md: 2列
-          lg: 4列（中画面） → 4×4
-        */}
+
         <div
           className="
           grid 
           grid-cols-1 
           sm:grid-cols-1
           md:grid-cols-2
-          lg:grid-cols-4
+          lg:grid-cols-3
+          xl:grid-cols-4
           gap-8
         "
         >
@@ -54,7 +54,7 @@ export default function Index({ foods, flash }) {
                         setMealFood(food);
                       }}
                     >
-                      食事追加
+                      食事を記録する
                     </Button>
 
                     <Button
@@ -94,7 +94,7 @@ export default function Index({ foods, flash }) {
               className=" bg-slate-600 text-white font-medium"
               form="meal_form"
             >
-              追加
+              記録する
             </Button>
           </div>
         }

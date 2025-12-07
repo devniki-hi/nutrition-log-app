@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import food_image_path from "../../assets/noimage.png";
 import HoverRevealText from "@/components/HoverRevealText.jsx";
 
