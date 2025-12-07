@@ -16,12 +16,19 @@ function LoginPage() {
     post("/login");
   };
 
+  console.log(errors);
+
   return (
     <div className="flex justify-center px-8 py-24">
       <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl px-8 py-10 shadow-lg">
         <form onSubmit={submit} className="space-y-6">
           {/* Email */}
           <div className="space-y-2">
+            {errors.errors && (
+              <div className="pb-4">
+                <p className="text-red-500">・{errors.errors}</p>
+              </div>
+            )}
             <Label htmlFor="email" className="text-slate-700">
               メールアドレス
             </Label>
@@ -37,7 +44,7 @@ function LoginPage() {
                   email: e.target.value,
                 })
               }
-              className={errors["user.email"] ? "border-red-500" : ""}
+              className={errors.errors ? "border-red-500" : ""}
             />
 
             {errors["user.email"] && (
@@ -62,7 +69,7 @@ function LoginPage() {
                   password: e.target.value,
                 })
               }
-              className={errors["user.password"] ? "border-red-500" : ""}
+              className={errors.errors ? "border-red-500" : ""}
             />
 
             {errors["user.password"] && (

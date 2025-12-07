@@ -11,7 +11,7 @@ export default function Index({ foods, flash }) {
 
   return (
     <>
-      <Head title="Foods" />
+      <Head title="食品一覧" />
 
       <div className="w-full pt-8 px-8">
         {flash.notice && (

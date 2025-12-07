@@ -2,7 +2,6 @@ class MealLogsController < InertiaController
   before_action :authenticate_user!
   before_action :set_meal_log, only: [ :update, :destroy ]
   
-
   # GET /meal-logs
   def index
     date = params[:date] ? Date.parse(params[:date]) : Date.current

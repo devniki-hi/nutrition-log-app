@@ -23,7 +23,7 @@ export default function Show({ food, flash }) {
 
   return (
     <>
-      <Head title={`Food Show`} />
+      <Head title={`${food.name} 詳細`} />
 
       <div className="w-full px-12 py-8">
         {flash.notice && (

@@ -5,8 +5,8 @@
 test_user = User.create!(
   name: "Test user",
   email: "test@example.com",
-  password: "password",
-  password_confirmation: "password"
+  password: "password1",
+  password_confirmation: "password1"
 )
 
 # その他 4 ユーザー（合計 5 ユーザー）

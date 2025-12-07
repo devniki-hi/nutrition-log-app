@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button.jsx";
 export default function New({ food }) {
   return (
     <div>
-      <Head title="New food" />
+      <Head title="食品追加" />
 
       <div className="w-full px-8 py-8">
         {/* Header */}

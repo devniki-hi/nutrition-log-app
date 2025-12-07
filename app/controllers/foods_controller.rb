@@ -1,4 +1,5 @@
 class FoodsController < InertiaController
+  before_action :authenticate_user!
   before_action :set_food, only: %i[show edit update destroy ]
   inertia_share do {
     unit_types: Food.unit_types.keys,

@@ -7,7 +7,7 @@ import FoodForm from "./Form.jsx";
 export default function Show({ food, flash }) {
   return (
     <>
-      <Head title={`Food Edit`} />
+      <Head title={`${food.name} 編集`} />
 
       <div className="w-full px-12 py-8">
         {flash.notice && (
