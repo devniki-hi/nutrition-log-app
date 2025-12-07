@@ -29,7 +29,6 @@ function MealForm({ meal_log = {}, food, method, action, onSuccess }) {
       >
         <FoodContent food={food} />
         <MealAmountPicker form={form} />
-
         <DateTimePicker form={form} />
       </form>
     </div>

@@ -21,14 +21,13 @@ export function MealAmountPicker({ form }) {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col my-6">
       <p className="text-sm font-semibold text-slate-700">食べた量を調整</p>
-
       <ToggleGroup
         type="single"
         value={value}
         onValueChange={handleSetAmount}
-        className="flex flex-wrap gap-1"
+        className="flex flex-wrap gap-1 my-1"
       >
         {preset_percentages.map((percentage) => (
           <ToggleGroupItem

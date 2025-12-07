@@ -44,7 +44,7 @@ class FoodsController < InertiaController
     @food = Food.new(food_params)
 
     if @food.save
-      redirect_to @food, notice: "Food was successfully created."
+      redirect_to @food, notice: "食品が保存されました。"
     else
       redirect_to new_food_url, inertia: { errors: @food.errors }
     end
@@ -53,7 +53,7 @@ class FoodsController < InertiaController
   # PATCH/PUT /foods/1
   def update
     if @food.update(food_params)
-      redirect_to @food, notice: "Food was successfully updated."
+      redirect_to @food, notice: "食品が更新されました。"
     else
       redirect_to edit_food_url(@food), inertia: { errors: @food.errors }
     end
@@ -62,7 +62,7 @@ class FoodsController < InertiaController
   # DELETE /foods/1
   def destroy
     @food.destroy!
-    redirect_to foods_url, notice: "Food was successfully destroyed."
+    redirect_to foods_url, notice: "食品が削除されました。"
   end
 
   private

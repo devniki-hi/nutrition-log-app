@@ -14,7 +14,6 @@ function MealClusterExpanded({ mealLogs, onSelectMeal }) {
     }),
     { kcal: 0, protein: 0, fat: 0, carbs: 0 }
   );
-  console.log(totals);
 
   return (
     <div className=" flex">

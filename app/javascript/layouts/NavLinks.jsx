@@ -8,10 +8,6 @@ function NavLinks() {
     >
       <Link href="/">ホーム</Link>
       <Link href="/foods">食品一覧</Link>
-      <Link href="/foods/new">食品追加</Link>
-      <Link href="/meal-logs">食事ログ</Link>
-      <Link href="/graph">グラフ</Link>
-      <Link href="/calendar">カレンダー</Link>
     </nav>
   );
 }
