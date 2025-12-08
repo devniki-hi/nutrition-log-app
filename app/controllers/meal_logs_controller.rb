@@ -44,7 +44,7 @@ class MealLogsController < InertiaController
       hour = @meal_log.logged_at.hour
       redirect_to authenticated_root_path(scroll_hour: hour), notice: "食事を更新しました。"
     else
-      redirect_to authenticated_root_path, inertia: {errors: @meal_log.errors}
+      redirect_to authenticated_root_path, inertia: { errors: @meal_log.errors }
     end
   end
 

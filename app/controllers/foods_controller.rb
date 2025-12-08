@@ -46,7 +46,7 @@ class FoodsController < InertiaController
     if @food.save
       redirect_to @food, notice: "食品が保存されました。"
     else
-      redirect_to new_food_url, inertia: {errors: @food.errors}
+      redirect_to new_food_url, inertia: { errors: @food.errors }
     end
   end
 
@@ -55,7 +55,7 @@ class FoodsController < InertiaController
     if @food.update(food_params)
       redirect_to @food, notice: "食品が更新されました。"
     else
-      redirect_to edit_food_url(@food), inertia: {errors: @food.errors}
+      redirect_to edit_food_url(@food), inertia: { errors: @food.errors }
     end
   end
 

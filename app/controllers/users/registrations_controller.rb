@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(resource)
       redirect_to authenticated_root_path
     else
-      redirect_to new_user_registration_url, inertia:{errors: resource.errors}
+      redirect_to new_user_registration_url, inertia: { errors: resource.errors }
     end
   end
 

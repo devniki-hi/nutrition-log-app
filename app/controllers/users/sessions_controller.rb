@@ -14,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
       sign_in(user)
       redirect_to authenticated_root_path
     else
-      redirect_to new_user_session_url, inertia: {errors: {message:"メールアドレスまたはパスワードが違います。"}}
+      redirect_to new_user_session_url, inertia: { errors: { message: "メールアドレスまたはパスワードが違います。" } }
     end
   end
 
