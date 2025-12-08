@@ -15,8 +15,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
+import DatePicker from "./DatePicker.jsx";
 
-function Index({ scroll_target_hour, meal_logs, flash }) {
+function Index({ meal_logs, flash, date, scroll_target_hour }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editingLog, setEditingLog] = useState(null);
   const handleSelectMeal = (log) => {
@@ -38,6 +39,7 @@ function Index({ scroll_target_hour, meal_logs, flash }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-3xl">食品一覧</h1>
+          <DatePicker selectedDate={date} />
           <Button asChild className="bg-slate-600 text-white font-medium">
             <Link href="/foods">食事を記録する</Link>
           </Button>
