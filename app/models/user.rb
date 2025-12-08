@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :name,
     length: { maximum: 50 }
 
-  private 
+  private
   def password_required?
     new_record? || password.present
   end

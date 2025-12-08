@@ -50,7 +50,7 @@ class FoodsController < InertiaController
       redirect_to @food, notice: "食品が保存されました。"
     else
       flash[:errors] = @food.errors
-      redirect_to new_food_url, inertia: { errors: flash[:errors]}
+      redirect_to new_food_url, inertia: { errors: flash[:errors] }
     end
   end
 

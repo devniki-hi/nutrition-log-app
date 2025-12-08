@@ -13,14 +13,14 @@ class Food < ApplicationRecord
     api: 1,
     jan: 2
   }
-  
+
   validates :name,
     presence: true,
     length: { maximum: 30 }
 
   with_options numericality: {
     greater_than_or_equal_to: 0,
-    format: { with: /\A\d+(\.\d{1,2})?\z/ } 
+    format: { with: /\A\d+(\.\d{1,2})?\z/ }
   } do
     validates :kcal
     validates :protein
@@ -42,7 +42,7 @@ class Food < ApplicationRecord
       message: "1以上の数値を入力してください"
     }
 
-  
+
   validates :unit_type,
     inclusion: { in: unit_types.keys }
 
@@ -51,11 +51,11 @@ class Food < ApplicationRecord
 
   validates :jan_code,
     format: {
-      with: /\A\d{13}\z/ ,
+      with: /\A\d{13}\z/,
       message: "13桁の数字を入力してください"
     },
     allow_blank: true
-    
+
 
   validates :note,
     length: { maximum: 500 },
