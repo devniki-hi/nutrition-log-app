@@ -29,7 +29,7 @@ export default function FoodForm({ food, method, action }) {
     note: food?.note ?? "",
   });
 
-  const fieldError = (field) => form.errors.errors?.[field];
+  const fieldError = (field) => form.errors?.[field];
 
   const handleSubmit = (event) => {
     form.transform((data) => ({
@@ -189,14 +189,12 @@ function InputField({ children, label, field, form }) {
         id={label}
         type="number"
         step="0.01"
-        className={`bg-white ${
-          form.errors.errors?.[field] ? "border-red-500" : ""
-        }`}
+        className={`bg-white ${form.errors?.[field] ? "border-red-500" : ""}`}
         value={form.data[field]}
         onChange={(e) => form.setData(field, e.target.value)}
       />
 
-      {form.errors.errors?.[field]?.map((msg, i) => (
+      {form.errors?.[field]?.map((msg, i) => (
         <p key={i} className="text-red-500 text-sm">
           ・{msg.slice(1)}
         </p>

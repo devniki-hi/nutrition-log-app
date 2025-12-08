@@ -40,11 +40,11 @@ export default function SignUpPage() {
                   email: e.target.value,
                 })
               }
-              className={errors.errors?.email ? "border-red-500" : ""}
+              className={errors.email ? "border-red-500" : ""}
             />
 
-            {errors.errors?.email &&
-              errors.errors.email.map((message, index) => (
+            {errors.email &&
+              errors.email.map((message, index) => (
                 <p key={index} className="text-red-500 text-sm">
                   ・{message.slice(1)}
                 </p>
@@ -68,11 +68,11 @@ export default function SignUpPage() {
                   password: e.target.value,
                 })
               }
-              className={errors.errors?.password ? "border-red-500" : ""}
+              className={errors.password ? "border-red-500" : ""}
             />
 
-            {errors.errors?.password &&
-              errors.errors.password.map((message, index) => (
+            {errors.password &&
+              errors.password.map((message, index) => (
                 <p key={index} className="text-red-500 text-sm">
                   ・{message.slice(1)}
                 </p>
@@ -96,13 +96,11 @@ export default function SignUpPage() {
                   password_confirmation: e.target.value,
                 })
               }
-              className={
-                errors.errors?.password_confirmation ? "border-red-500" : ""
-              }
+              className={errors.password_confirmation ? "border-red-500" : ""}
             />
 
-            {errors.errors?.password_confirmation &&
-              errors.errors.password_confirmation.map((message, index) => (
+            {errors.password_confirmation &&
+              errors.password_confirmation.map((message, index) => (
                 <p key={index} className="text-red-500 text-sm">
                   ・{message.slice(1)}
                 </p>
