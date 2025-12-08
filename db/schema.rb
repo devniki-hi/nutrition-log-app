@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_03_065419) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_08_015927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_065419) do
     t.datetime "updated_at", null: false
     t.index ["jan_code"], name: "index_foods_on_jan_code"
     t.index ["name"], name: "index_foods_on_name"
+    t.check_constraint "carbs >= 0::double precision", name: "foods_carbs_non_negative"
+    t.check_constraint "char_length(name::text) <= 30", name: "foods_name_length_check"
+    t.check_constraint "char_length(note) <= 500", name: "foods_note_length_check"
+    t.check_constraint "fat >= 0::double precision", name: "foods_fat_non_negative"
+    t.check_constraint "fiber >= 0::double precision", name: "foods_fiber_non_negative"
+    t.check_constraint "kcal >= 0::double precision", name: "foods_kcal_non_negative"
+    t.check_constraint "portion_value > 0", name: "foods_portion_positive"
+    t.check_constraint "protein >= 0::double precision", name: "foods_protein_non_negative"
+    t.check_constraint "sugar >= 0::double precision", name: "foods_sugar_non_negative"
   end
 
   create_table "meal_logs", force: :cascade do |t|
@@ -42,6 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_065419) do
     t.bigint "user_id", null: false
     t.index ["food_id"], name: "index_meal_logs_on_food_id"
     t.index ["user_id"], name: "index_meal_logs_on_user_id"
+    t.check_constraint "intake_rate > 0", name: "meal_logs_intake_rate_positive"
   end
 
   create_table "users", force: :cascade do |t|

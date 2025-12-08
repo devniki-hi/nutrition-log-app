@@ -17,6 +17,7 @@ export default function SignUpPage() {
     e.preventDefault();
     post("/signup");
   };
+  console.log(errors);
 
   return (
     <div className="flex justify-center px-8 py-24">
@@ -39,12 +40,15 @@ export default function SignUpPage() {
                   email: e.target.value,
                 })
               }
-              className={errors.errors?.email ? "border-red-500" : ""}
+              className={errors.email ? "border-red-500" : ""}
             />
 
-            {errors.errors?.email && (
-              <p className="text-red-500 text-sm">{errors.errors.email}</p>
-            )}
+            {errors.email &&
+              errors.email.map((message, index) => (
+                <p key={index} className="text-red-500 text-sm">
+                  ・{message.slice(1)}
+                </p>
+              ))}
           </div>
 
           {/* Password */}
@@ -64,12 +68,15 @@ export default function SignUpPage() {
                   password: e.target.value,
                 })
               }
-              className={errors.errors?.password ? "border-red-500" : ""}
+              className={errors.password ? "border-red-500" : ""}
             />
 
-            {errors.errors?.password && (
-              <p className="text-red-500 text-sm">{errors.errors.password}</p>
-            )}
+            {errors.password &&
+              errors.password.map((message, index) => (
+                <p key={index} className="text-red-500 text-sm">
+                  ・{message.slice(1)}
+                </p>
+              ))}
           </div>
 
           {/* Password Confirmation */}
@@ -89,16 +96,15 @@ export default function SignUpPage() {
                   password_confirmation: e.target.value,
                 })
               }
-              className={
-                errors.errors?.password_confirmation ? "border-red-500" : ""
-              }
+              className={errors.password_confirmation ? "border-red-500" : ""}
             />
 
-            {errors.errors?.password_confirmation && (
-              <p className="text-red-500 text-sm">
-                {errors.errors.password_confirmation}
-              </p>
-            )}
+            {errors.password_confirmation &&
+              errors.password_confirmation.map((message, index) => (
+                <p key={index} className="text-red-500 text-sm">
+                  ・{message.slice(1)}
+                </p>
+              ))}
           </div>
 
           {/* Submit */}

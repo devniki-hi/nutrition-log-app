@@ -16,18 +16,20 @@ export default function FoodForm({ food, method, action }) {
 
   const form = useForm({
     name: food?.name ?? "",
-    portion_value: food?.portion_value ?? "",
+    portion_value: food?.portion_value ?? 0,
     unit_type: food?.unit_type ?? unit_types[0],
-    kcal: food?.kcal ?? "",
-    protein: food?.protein ?? "",
-    fat: food?.fat ?? "",
-    carbs: food?.carbs ?? "",
-    sugar: food?.sugar ?? "",
-    fiber: food?.fiber ?? "",
+    kcal: food?.kcal ?? 0,
+    protein: food?.protein ?? 0,
+    fat: food?.fat ?? 0,
+    carbs: food?.carbs ?? 0,
+    sugar: food?.sugar ?? 0,
+    fiber: food?.fiber ?? 0,
     source: food?.source ?? sources[0],
     jan_code: food?.jan_code ?? "",
     note: food?.note ?? "",
   });
+
+  const fieldError = (field) => form.errors?.[field];
 
   const handleSubmit = (event) => {
     form.transform((data) => ({
@@ -36,7 +38,6 @@ export default function FoodForm({ food, method, action }) {
       source: "manual",
     }));
     console.log(form.data);
-
     event.preventDefault();
     if (method === "post") {
       form.post(action);
@@ -59,10 +60,16 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Input
           id="name"
-          className="bg-white"
+          className={`bg-white ${fieldError("name") ? "border-red-500" : ""}`}
           value={form.data.name}
           onChange={(e) => form.setData("name", e.target.value)}
         />
+
+        {fieldError("name")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg.slice(1)}
+          </p>
+        ))}
       </div>
 
       <div className="flex justify-between gap-2">
@@ -73,10 +80,18 @@ export default function FoodForm({ food, method, action }) {
           <Input
             id="portion_value"
             type="number"
-            className="bg-white"
+            className={`bg-white ${
+              fieldError("portion_value") ? "border-red-500" : ""
+            }`}
             value={form.data.portion_value}
             onChange={(e) => form.setData("portion_value", e.target.value)}
           />
+
+          {fieldError("portion_value")?.map((msg, i) => (
+            <p key={i} className="text-red-500 text-sm">
+              ・{msg}
+            </p>
+          ))}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -126,10 +141,18 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Input
           id="jan_code"
-          className="bg-white"
+          className={`bg-white ${
+            fieldError("jan_code") ? "border-red-500" : ""
+          }`}
           value={form.data.jan_code}
           onChange={(e) => form.setData("jan_code", e.target.value)}
         />
+
+        {fieldError("jan_code")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg}
+          </p>
+        ))}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -138,10 +161,16 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Textarea
           id="note"
-          className="bg-white"
+          className={`bg-white ${fieldError("note") ? "border-red-500" : ""}`}
           value={form.data.note}
           onChange={(e) => form.setData("note", e.target.value)}
         />
+
+        {fieldError("note")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            {msg.slice(1)}
+          </p>
+        ))}
       </div>
       <div className="flex flex-col gap-1">
         <Input id="image" type="file" className="bg-white" />
@@ -159,10 +188,17 @@ function InputField({ children, label, field, form }) {
       <Input
         id={label}
         type="number"
-        className="bg-white"
+        step="0.01"
+        className={`bg-white ${form.errors?.[field] ? "border-red-500" : ""}`}
         value={form.data[field]}
         onChange={(e) => form.setData(field, e.target.value)}
       />
+
+      {form.errors?.[field]?.map((msg, i) => (
+        <p key={i} className="text-red-500 text-sm">
+          ・{msg.slice(1)}
+        </p>
+      ))}
     </div>
   );
 }

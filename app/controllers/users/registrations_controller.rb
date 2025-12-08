@@ -5,10 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def new
-    render inertia: "Auth/SignUpPage",
-                      props: {
-                        errors: flash[:errors] ? { errors: flash[:errors] }: {}
-                      }
+    render inertia: "Auth/SignUpPage"
   end
 
   def create
@@ -18,8 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(resource)
       redirect_to authenticated_root_path
     else
-      flash[:errors] = resource.errors
-      redirect_to new_user_registration_url
+      redirect_to new_user_registration_url, inertia: { errors: resource.errors }
     end
   end
 

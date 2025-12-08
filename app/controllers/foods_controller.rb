@@ -1,4 +1,5 @@
 class FoodsController < InertiaController
+  before_action :authenticate_user!
   before_action :set_food, only: %i[show edit update destroy ]
   inertia_share do {
     unit_types: Food.unit_types.keys,
@@ -42,7 +43,6 @@ class FoodsController < InertiaController
   # POST /foods
   def create
     @food = Food.new(food_params)
-
     if @food.save
       redirect_to @food, notice: "食品が保存されました。"
     else

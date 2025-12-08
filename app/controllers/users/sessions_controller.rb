@@ -4,10 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   # ログイン済みでもルートに行くことは確認済み
   def new
-    render inertia: "Auth/LoginPage",
-                      props: {
-                        errors: flash[:errors] ? { errors: flash[:errors] } : {}
-                      }
+    render inertia: "Auth/LoginPage"
   end
 
   # POST /resource/sign_in
@@ -17,8 +14,7 @@ class Users::SessionsController < Devise::SessionsController
       sign_in(user)
       redirect_to authenticated_root_path
     else
-      flash[:errors] = "メールアドレスまたはパスワードが正しくありません。"
-      redirect_to new_user_session_url
+      redirect_to new_user_session_url, inertia: { errors: { message: "メールアドレスまたはパスワードが違います。" } }
     end
   end
 

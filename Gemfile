@@ -73,3 +73,5 @@ gem "vite_rails", "~> 3.0"
 gem "devise"
 
 gem "faker"
+
+gem "rails-i18n"

@@ -1,7 +1,6 @@
 class MealLogsController < InertiaController
   before_action :authenticate_user!
   before_action :set_meal_log, only: [ :update, :destroy ]
-  
 
   # GET /meal-logs
   def index
@@ -32,7 +31,10 @@ class MealLogsController < InertiaController
       hour = meal_log.logged_at.hour
       redirect_to authenticated_root_path(scroll_hour: hour), notice: "食事を記録しました。"
     else
-      redirect_to authenticated_root_path, inertia: { errors: meal_log.errors }
+      redirect_back(
+        fallback_location: authenticated_root_path,
+        inertia: { errors: meal_log.errors }
+      )
     end
   end
 

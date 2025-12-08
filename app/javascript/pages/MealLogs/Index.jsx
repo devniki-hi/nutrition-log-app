@@ -19,7 +19,6 @@ import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
 function Index({ scroll_target_hour, meal_logs, flash }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editingLog, setEditingLog] = useState(null);
-  console.log(scroll_target_hour);
   const handleSelectMeal = (log) => {
     setEditingLog(log);
     setOpenEditModal(true);
@@ -43,18 +42,12 @@ function Index({ scroll_target_hour, meal_logs, flash }) {
             <Link href="/foods">食事を記録する</Link>
           </Button>
         </div>
-        {/* ===========================
-          Timeline
-      ============================ */}
+
         <TimelineContainer
           mealLogs={meal_logs}
           onSelectMeal={handleSelectMeal}
           scrollToHour={scroll_target_hour}
         />
-
-        {/* ===========================
-          編集モーダル
-      ============================ */}
         <MealModal
           open={openEditModal}
           setOpen={setOpenEditModal}
