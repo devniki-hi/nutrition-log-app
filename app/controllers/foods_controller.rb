@@ -12,7 +12,8 @@ class FoodsController < InertiaController
     render inertia: "Foods/Index", props: {
       foods: @foods.map do |food|
         serialize_food(food)
-      end
+      end,
+      errors: flash[:errors] ? { errors: flash[:errors] }: {}
     }
   end
 
@@ -29,25 +30,27 @@ class FoodsController < InertiaController
     render inertia: "Foods/New", props: {
       food: @food,
       unit_types: Food.unit_types.keys,
-      sources: Food.sources.keys
+      sources: Food.sources.keys,
+      errors: flash[:errors] ? { errors: flash[:errors] }: {}
     }
   end
 
   # GET /foods/1/edit
   def edit
     render inertia: "Foods/Edit", props:  {
-      food: serialize_food(@food)
+      food: serialize_food(@food),
+      errors: flash[:errors] ? { errors: flash[:errors] }: {}
     }
   end
 
   # POST /foods
   def create
     @food = Food.new(food_params)
-
     if @food.save
       redirect_to @food, notice: "食品が保存されました。"
     else
-      redirect_to new_food_url, inertia: { errors: @food.errors }
+      flash[:errors] = @food.errors
+      redirect_to new_food_url, inertia: { errors: flash[:errors]}
     end
   end
 
@@ -56,7 +59,8 @@ class FoodsController < InertiaController
     if @food.update(food_params)
       redirect_to @food, notice: "食品が更新されました。"
     else
-      redirect_to edit_food_url(@food), inertia: { errors: @food.errors }
+      flash[:errors] = @food.errors
+      redirect_to edit_food_url(@food), inertia: { errors: flash[:errors] }
     end
   end
 
