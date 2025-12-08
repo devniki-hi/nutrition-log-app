@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_07_122442) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_08_015927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_07_122442) do
     t.bigint "user_id", null: false
     t.index ["food_id"], name: "index_meal_logs_on_food_id"
     t.index ["user_id"], name: "index_meal_logs_on_user_id"
+    t.check_constraint "intake_rate > 0", name: "meal_logs_intake_rate_positive"
   end
 
   create_table "users", force: :cascade do |t|
