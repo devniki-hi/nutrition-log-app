@@ -8,7 +8,7 @@ class Users::UsersController < InertiaController
 
   def edit
     render inertia: "Users/MyPageEdit", props: {
-        user:current_user
+        user: current_user
     }
   end
 
@@ -31,5 +31,4 @@ class Users::UsersController < InertiaController
       :avatar
     )
   end
-
 end

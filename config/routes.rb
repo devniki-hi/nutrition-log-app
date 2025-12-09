@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     delete "/account", to: "users/registrations#destroy", as: "destroy_user_registration"
   end
 
-  get  "/mypage", to: "users/users#mypage"
+  get "/mypage", to: "users/users#mypage"
   get "/mypage/edit", to: "users/users#edit"
   patch "/mypage", to: "users/users#update"
   # delete "/mypage", to: "users/users#destroy"
