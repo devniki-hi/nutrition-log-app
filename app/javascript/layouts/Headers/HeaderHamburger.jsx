@@ -9,6 +9,7 @@ import {
 import { Menu } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import NavLinks from "../NavLinks.jsx";
+import { SheetDescription } from "@/components/ui/sheet.jsx";
 function HeaderHamburger() {
   return (
     <Sheet>
@@ -20,6 +21,7 @@ function HeaderHamburger() {
         {/* ▼ アクセシビリティ対応：見えないタイトル */}
         <SheetHeader>
           <SheetTitle>メニュー</SheetTitle>
+          <SheetDescription>ここから移動できます</SheetDescription>
         </SheetHeader>
         <NavLinks />
       </SheetContent>
