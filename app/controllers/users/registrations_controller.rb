@@ -24,14 +24,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # アカウント設定の更新処理
   # def update
-  #   super
+  #   self.resource = resource_class.to_adapter.get!(current_user.to_key)
+
+  #   params = account_update_params
+  #   if params[:password].blank?
+  #     params.delete(:password)
+  #     params.delete(:password_confirmation)
+  #   end
+
+  #   if resource.update(params)
+  #     bypass_sign_in(resource)
+  #     redirect_to mypage_path
+  #   else
+  #     redirect_to mypage_path, inertia: { errors: resource.errors }
+  #   end
   # end
 
-  # アカウント削除処理
   # def destroy
-  #   super
+  #   resource.destroy
+  #   Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+  #   redirect_to root_path
   # end
 
   # GET /resource/cancel
@@ -53,9 +66,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # default: email, password, password_confirmation, current_password
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile_image])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile_image])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

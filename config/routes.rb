@@ -29,6 +29,12 @@ Rails.application.routes.draw do
     put "/account", to: "users/registrations#update", as: "update_user_registration"
     delete "/account", to: "users/registrations#destroy", as: "destroy_user_registration"
   end
+
+  get  "/mypage", to: "users/users#mypage"
+  get "/mypage/edit", to: "users/users#edit"
+  patch "/mypage", to: "users/users#update"
+  # delete "/mypage", to: "users/users#destroy"
+
   # Redirect to localhost from 127.0.0.1 to use same IP address with Vite server
   # get "inertia-example", to: "inertia_example#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
