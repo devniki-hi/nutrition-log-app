@@ -39,12 +39,15 @@ function Index({ meal_logs, flash, date, scroll_target_hour }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-3xl">食品一覧</h1>
-          <div className="hidden">
+          <div className="hidden md:block">
             <DatePicker selectedDate={date} />
           </div>
           <Button asChild className="bg-slate-600 text-white font-medium">
             <Link href="/foods">食事を記録する</Link>
           </Button>
+        </div>
+        <div className="block md:hidden">
+          <DatePicker selectedDate={date} />
         </div>
 
         <TimelineContainer

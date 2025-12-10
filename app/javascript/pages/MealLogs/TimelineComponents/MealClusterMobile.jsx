@@ -28,8 +28,8 @@ function MealClusterMobile({ mealLogs, onSelectMeal }) {
               </div>
               {/* 食品カード */}
               {mealLogs.map((log) => (
-                <div className="px-2 py-2">
-                  <MealCard key={log.id} log={log} onSelect={onSelectMeal} />
+                <div key={log.id} className="px-2 py-2">
+                  <MealCard log={log} onSelect={onSelectMeal} />
                 </div>
               ))}
             </div>

@@ -15,7 +15,7 @@ function MealCluster({ mealLogs, onSelectMeal }) {
     { kcal: 0, protein: 0, fat: 0, carbs: 0 }
   );
   return (
-    <div className="bg-blue-50 mx-2 rounded-md border-2 md:w-[50vw] lg:w-[60vw] xl:w-full">
+    <div className="bg-blue-50 mx-2 rounded-md border-2 md:w-[50vw] lg:w-[60vw] [@media(min-width:1280px)]:max-w-[100vw] 2xl:w-full">
       {mealLogs.length !== 0 ? (
         // クラスターが開いている
         // 大きさを制御
