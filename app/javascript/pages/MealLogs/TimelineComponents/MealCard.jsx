@@ -3,12 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 function MealCard({ log, onSelect }) {
   return (
-    <Card
-      onClick={() => onSelect?.(log)}
-      className="
-        w-[150px] cursor-pointer
-      "
-    >
+    <Card onClick={() => onSelect?.(log)} className="w-40 cursor-pointer">
       {/* 食品名 */}
       <CardHeader className="text-center">
         <CardTitle className="font-semibold line-clamp-1">

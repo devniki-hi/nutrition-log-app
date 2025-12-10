@@ -24,12 +24,14 @@ export default function DatePicker({ selectedDate }) {
   };
 
   return (
-    <div className="bg-sky-50 p-2 border border-slate-300 rounded-md flex items-center gap-4 flex-wrap">
+    <div className="bg-sky-50 p-2 border border-slate-300 rounded-md flex items-center justify-center gap-4 flex-wrap">
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" className="flex gap-2">
             <CalendarIcon />
-            {format(date, "yyyy年MM月dd日", { locale: ja })}
+            <div className="hidden md:block">
+              {format(date, "yyyy年MM月dd日", { locale: ja })}
+            </div>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
@@ -42,7 +44,7 @@ export default function DatePicker({ selectedDate }) {
         </PopoverContent>
       </Popover>
 
-      <div className="flex gap-2 overflow-x-auto">
+      <div className="hidden md:flex gap-2 overflow-x-auto">
         {[...Array(7)].map((_, i) => {
           const d = addDays(new Date(date), i - 3);
           const isActive =
@@ -63,7 +65,27 @@ export default function DatePicker({ selectedDate }) {
           );
         })}
       </div>
-      {/* ✅ 今日ボタン */}
+      <div className="flex md:hidden gap-4 overflow-x-auto">
+        {[...Array(3)].map((_, i) => {
+          const d = addDays(new Date(date), i - 1);
+          const isActive =
+            format(d, "yyyy-MM-dd") === format(date, "yyyy-MM-dd");
+          return (
+            <button
+              key={i}
+              onClick={() => moveDate(d)}
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium border
+                ${
+                  isActive
+                    ? "bg-slate-700 text-white"
+                    : "bg-white text-slate-700 hover:bg-slate-100"
+                }`}
+            >
+              {format(d, "dd")}
+            </button>
+          );
+        })}
+      </div>
       <Button variant="outline" onClick={() => moveDate(new Date())}>
         今日
       </Button>

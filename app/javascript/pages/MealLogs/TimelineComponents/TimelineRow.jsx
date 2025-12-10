@@ -1,6 +1,7 @@
 // TimelineRow.jsx
 import React, { useState } from "react";
 import MealCluster from "./MealCluster.jsx";
+import MealClusterMobile from "./MealClusterMobile.jsx";
 
 function TimelineRow({ hour, mealLogs, onSelectMeal }) {
   return (
@@ -15,7 +16,12 @@ function TimelineRow({ hour, mealLogs, onSelectMeal }) {
           <div className="w-4 h-4 rounded-full bg-slate-600"></div>
           <div className="w-7 h-1 bg-slate-600"></div>
         </div>
-        <MealCluster mealLogs={mealLogs} onSelectMeal={onSelectMeal} />
+        <div className="hidden md:block">
+          <MealCluster mealLogs={mealLogs} onSelectMeal={onSelectMeal} />
+        </div>
+        <div className="block md:hidden">
+          <MealClusterMobile mealLogs={mealLogs} onSelectMeal={onSelectMeal} />
+        </div>
       </div>
     </div>
   );
