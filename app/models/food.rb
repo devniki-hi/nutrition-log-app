@@ -62,6 +62,16 @@ class Food < ApplicationRecord
     length: { maximum: 500 },
     allow_blank: true
 
+  validates :food_image,
+            content_type: { 
+              in: %w[image/jpeg image/png image/webp],
+              message: "画像は JPEG/PNG/WebP のいずれかにしてください"
+            },
+            size: { 
+              less_than: 2.megabytes,
+              message: "画像は 5MB 以下にしてください"
+            }
+
   private
 
   def set_default_nutrition_values
