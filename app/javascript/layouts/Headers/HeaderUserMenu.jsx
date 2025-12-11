@@ -34,7 +34,7 @@ function HeaderUserMenu() {
             size="sm"
             onClick={() => router.delete("/logout")}
           >
-            Log Out
+            ログアウト
           </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
