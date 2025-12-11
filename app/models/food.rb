@@ -63,11 +63,11 @@ class Food < ApplicationRecord
     allow_blank: true
 
   validates :food_image,
-            content_type: { 
+            content_type: {
               in: %w[image/jpeg image/png image/webp],
               message: "画像は JPEG/PNG/WebP のいずれかにしてください"
             },
-            size: { 
+            size: {
               less_than: 2.megabytes,
               message: "画像は 5MB 以下にしてください"
             }

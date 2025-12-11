@@ -75,4 +75,4 @@ gem "faker"
 
 gem "rails-i18n"
 
-gem 'active_storage_validations'
+gem "active_storage_validations"
