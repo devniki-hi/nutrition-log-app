@@ -1,7 +1,7 @@
 import HoverRevealText from "@/components/HoverRevealText.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Head, Link } from "@inertiajs/react";
-import food_image_path from "../../assets/noimage.png";
+import no_image_path from "../../assets/noimage.png";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -86,7 +86,7 @@ export default function Show({ food, flash }) {
           <div className="md:w-1/2 flex flex-col items-center p-8">
             <div className="aspect-square max-w-[420px] max-h-[420px] w-full bg-gray-50 shadow-md rounded-md ">
               <img
-                src={food_image_path}
+                src={food.food_image ? food.food_image : no_image_path}
                 alt="food"
                 className="w-full h-full object-contain"
               />
@@ -128,9 +128,6 @@ export default function Show({ food, flash }) {
         </div>
       </div>
 
-      {/* ===========================
-          追加モーダル（1個だけ）
-      ============================ */}
       <MealModal
         open={openAddModal}
         setOpen={setOpenAddModal}

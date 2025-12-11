@@ -2,6 +2,7 @@ class Food < ApplicationRecord
   has_many :meal_logs, dependent: :destroy
   has_many :users, through: :meal_logs
   before_validation :set_default_nutrition_values
+  has_one_attached :food_image
 
   enum :unit_type, {
     g: 0,

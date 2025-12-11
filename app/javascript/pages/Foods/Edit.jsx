@@ -1,10 +1,14 @@
-import HoverRevealText from "@/components/HoverRevealText.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Head, Link } from "@inertiajs/react";
-import food_image_path from "../../assets/noimage.png";
+import no_image_path from "../../assets/noimage.png";
 import FoodForm from "./Form.jsx";
+import { useState } from "react";
 
 export default function Edit({ food, flash }) {
+  const [foodImageState, setFoodImageState] = useState(
+    food.food_image ? food.food_image : no_image_path
+  );
+  console.log(foodImageState);
   return (
     <>
       <Head title={`${food.name} 編集`} />
@@ -44,7 +48,7 @@ export default function Edit({ food, flash }) {
           <div className="md:w-1/2 flex flex-col items-center p-8">
             <div className="aspect-square max-w-[420px] max-h-[420px] w-full bg-gray-50 shadow-md rounded-md ">
               <img
-                src={food_image_path}
+                src={foodImageState ? foodImageState : no_image_path}
                 alt="food"
                 className="w-full h-full object-contain"
               />
@@ -53,19 +57,15 @@ export default function Edit({ food, flash }) {
 
           {/* 右：編集 */}
           <div className="md:w-1/2 bg-sky-50 shadow-md rounded-lg p-4 h-auto">
-            <FoodForm food={food} method="patch" action={`/foods/${food.id}`} />
+            <FoodForm
+              food={food}
+              method="patch"
+              action={`/foods/${food.id}`}
+              setFoodImageState={setFoodImageState}
+            />
           </div>
         </div>
       </div>
     </>
-  );
-}
-
-function InfoRow({ label, value }) {
-  return (
-    <div className="flex justify-between border border-gray-200 rounded-md px-3 py-2 bg-slate-50">
-      <span className="text-gray-600">{label}</span>
-      <span className="font-medium">{value}</span>
-    </div>
   );
 }

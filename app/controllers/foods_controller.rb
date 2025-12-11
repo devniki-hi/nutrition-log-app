@@ -43,6 +43,9 @@ class FoodsController < InertiaController
   # POST /foods
   def create
     @food = Food.new(food_params)
+    if params[:food][:food_image].present?
+      @food.food_image.attach(params[:food][:food_image])
+    end
     if @food.save
       redirect_to @food, notice: "食品が保存されました。"
     else
@@ -52,6 +55,9 @@ class FoodsController < InertiaController
 
   # PATCH/PUT /foods/1
   def update
+    if params[:food][:food_image].present?
+      @food.food_image.attach(params[:food][:food_image])
+    end
     if @food.update(food_params)
       redirect_to @food, notice: "食品が更新されました。"
     else
@@ -85,11 +91,14 @@ class FoodsController < InertiaController
         :fiber,
         :source,
         :jan_code,
-        :note
+        :note,
+        :food_image,
       )
     end
 
     def serialize_food(food)
-      food.as_json()
+      food.as_json.merge(
+        food_image: food.food_image.attached? ? rails_blob_url(food.food_image, only_path: true) : nil
+      )
     end
 end

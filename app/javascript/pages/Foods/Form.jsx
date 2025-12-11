@@ -10,8 +10,16 @@ import {
 import { useForm } from "@inertiajs/react";
 import { Label } from "@/components/ui/label.jsx";
 import { useFoodEnums } from "./useFoodEnums.jsx";
+import { useState } from "react";
+import { Button } from "@/components/ui/button.jsx";
+import { X } from "lucide-react";
 
-export default function FoodForm({ food, method, action }) {
+export default function FoodForm({
+  food,
+  method,
+  action,
+  setFoodImageState = () => {},
+}) {
   const { unit_types, sources } = useFoodEnums();
 
   const form = useForm({
@@ -27,17 +35,22 @@ export default function FoodForm({ food, method, action }) {
     source: food?.source ?? sources[0],
     jan_code: food?.jan_code ?? "",
     note: food?.note ?? "",
+    food_image: null,
   });
 
+  const [selectedFileName, setSelectedFileName] = useState(
+    food.food_image ? food.food_image.split("/").pop() : ""
+  );
   const fieldError = (field) => form.errors?.[field];
 
   const handleSubmit = (event) => {
     form.transform((data) => ({
-      ...data,
-      carbs: parseFloat(form.data.sugar) + parseFloat(form.data.fiber),
-      source: "manual",
+      food: {
+        ...data,
+        carbs: parseFloat(data.sugar) + parseFloat(data.fiber),
+        source: "manual",
+      },
     }));
-    console.log(form.data);
     event.preventDefault();
     if (method === "post") {
       form.post(action);
@@ -173,7 +186,58 @@ export default function FoodForm({ food, method, action }) {
         ))}
       </div>
       <div className="flex flex-col gap-1">
-        <Input id="image" type="file" className="bg-white" />
+        <Label htmlFor="food_image" className="text-slate-700">
+          画像
+        </Label>
+
+        <div className="flex items-center justify-between gap-3">
+          {/* 実際の file input（隠す） */}
+          <input
+            id="food_image"
+            type="file"
+            className="hidden"
+            onChange={(e) => {
+              setFoodImageState(URL.createObjectURL(e.target.files[0]));
+              form.setData("food_image", e.target.files[0]);
+              setSelectedFileName(e.target.files[0].name);
+            }}
+          />
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => document.getElementById("food_image").click()}
+          >
+            ファイルを選択
+          </Button>
+
+          <div className="flex items-center">
+            <span className="text-sm line-clamp-2">
+              {selectedFileName || "ファイル未選択"}
+            </span>
+            {selectedFileName && (
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                onClick={() => {
+                  setFoodImageState(null);
+                  form.setData("food_image", null);
+                  setSelectedFileName("");
+
+                  document.getElementById("food_image").value = "";
+                }}
+              >
+                <X className="w-4 h-4 text-red-300" />
+              </Button>
+            )}
+          </div>
+        </div>
+        {fieldError("food_image")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg}
+          </p>
+        ))}
       </div>
     </form>
   );
