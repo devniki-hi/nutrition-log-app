@@ -2,6 +2,7 @@ class Food < ApplicationRecord
   has_many :meal_logs, dependent: :destroy
   has_many :users, through: :meal_logs
   before_validation :set_default_nutrition_values
+  has_one_attached :food_image
 
   enum :unit_type, {
     g: 0,
@@ -60,6 +61,16 @@ class Food < ApplicationRecord
   validates :note,
     length: { maximum: 500 },
     allow_blank: true
+
+  validates :food_image,
+            content_type: {
+              in: %w[image/jpeg image/png image/webp],
+              message: "画像は JPEG/PNG/WebP のいずれかにしてください"
+            },
+            size: {
+              less_than: 2.megabytes,
+              message: "画像は 5MB 以下にしてください"
+            }
 
   private
 
