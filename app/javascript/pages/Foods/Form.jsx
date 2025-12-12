@@ -135,7 +135,7 @@ export default function FoodForm({
 
       <div className="grid grid-cols-2 gap-4">
         <InputField label="protein" field="protein" form={form}>
-          プロテイン
+          たんぱく質
         </InputField>
         <InputField label="fat" field="fat" form={form}>
           脂質

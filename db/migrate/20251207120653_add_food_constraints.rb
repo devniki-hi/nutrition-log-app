@@ -19,7 +19,7 @@ class AddFoodConstraints < ActiveRecord::Migration[8.1]
       name: "foods_note_length_check"
 
     add_check_constraint :foods,
-      "jan_code ~ '^[0-9]{13}$' OR jan_code IS NULL",
+      "jan_code ~ '^[0-9]{13}$' OR jan_code IS NULL OR jan_code = ''",
       name: "foods_jan_code_format_check"
   end
 end
