@@ -36,6 +36,7 @@ export default function FoodForm({
     jan_code: food?.jan_code ?? "",
     note: food?.note ?? "",
     food_image: null,
+    remove_food_image: false,
   });
 
   const [selectedFileName, setSelectedFileName] = useState(
@@ -55,6 +56,7 @@ export default function FoodForm({
     if (method === "post") {
       form.post(action);
     } else if (method === "patch") {
+      console.log(form.data);
       form.patch(action);
     }
   };
@@ -199,6 +201,7 @@ export default function FoodForm({
             onChange={(e) => {
               setFoodImageState(URL.createObjectURL(e.target.files[0]));
               form.setData("food_image", e.target.files[0]);
+              form.setData("remove_food_image", false);
               setSelectedFileName(e.target.files[0].name);
             }}
           />
@@ -212,8 +215,8 @@ export default function FoodForm({
           </Button>
 
           <div className="flex items-center">
-            <span className="text-sm line-clamp-2">
-              {selectedFileName || "ファイル未選択"}
+            <span className="text-sm line-clamp-1">
+              {decodeURIComponent(selectedFileName) || "ファイル未選択"}
             </span>
             {selectedFileName && (
               <Button
@@ -223,6 +226,7 @@ export default function FoodForm({
                 onClick={() => {
                   setFoodImageState(null);
                   form.setData("food_image", null);
+                  form.setData("remove_food_image", true);
                   setSelectedFileName("");
 
                   document.getElementById("food_image").value = "";
