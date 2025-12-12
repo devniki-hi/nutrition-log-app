@@ -78,5 +78,5 @@ gem "rails-i18n"
 gem "active_storage_validations"
 
 group :production do
-  gem "aws-sdk-s3", require: false
+  gem "aws-sdk-s3", "1.206.0", require: false
 end
