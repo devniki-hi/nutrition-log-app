@@ -8,7 +8,6 @@ export default function Edit({ food, flash }) {
   const [foodImageState, setFoodImageState] = useState(
     food.food_image ? food.food_image : no_image_path
   );
-  console.log(foodImageState);
   return (
     <>
       <Head title={`${food.name} 編集`} />
@@ -37,7 +36,7 @@ export default function Edit({ food, flash }) {
                 href={`/foods/${food.id}`}
                 className=" bg-white text-black font-medium"
               >
-                戻る
+                詳細に戻る
               </Link>
             </Button>
           </div>

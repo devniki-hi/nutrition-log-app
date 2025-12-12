@@ -40,17 +40,13 @@ export default function WelcomePage({ title }) {
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-sky-200/40 to-blue-200/20 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-sky-50 border border-sky-200 rounded-3xl p-8 shadow-xl">
-              <div className="aspect-video bg-sky-100 rounded-2xl flex items-center justify-center">
-                <Camera className="w-16 h-16 text-sky-400" />
-              </div>
-              <p className="text-sm text-sky-600 text-center mt-4">
-                写真を撮ってAIがカロリーを分析
-              </p>
+          <div className="relative bg-sky-50 border border-sky-200 rounded-3xl p-8 shadow-xl">
+            <div className="aspect-video bg-sky-100 rounded-2xl flex items-center justify-center">
+              <Camera className="w-16 h-16 text-sky-400" />
             </div>
+            <p className="text-sm text-sky-600 text-center mt-4">
+              写真を撮ってAIがカロリーを分析
+            </p>
           </div>
         </div>
       </section>
