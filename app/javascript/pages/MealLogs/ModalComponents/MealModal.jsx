@@ -26,7 +26,7 @@ function MealModal({
   setOpen,
   modalTriggerComponent,
   headerText,
-  headerDescription = "埋めてください",
+  headerDescription,
   component,
   footerComponent = <></>,
 }) {

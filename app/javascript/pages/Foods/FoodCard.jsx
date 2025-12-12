@@ -5,8 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import food_image_path from "../../assets/noimage.png";
+import no_image_path from "../../assets/noimage.png";
 import HoverRevealText from "@/components/HoverRevealText.jsx";
 
 export default function FoodCard({ food, footerComponent }) {
@@ -26,7 +25,7 @@ export default function FoodCard({ food, footerComponent }) {
       <CardContent>
         <div className="w-full aspect-square overflow-hidden bg-gray-50">
           <img
-            src={food_image_path}
+            src={food.food_image ? food.food_image : no_image_path}
             alt="food"
             className="w-full h-full object-cover"
           />

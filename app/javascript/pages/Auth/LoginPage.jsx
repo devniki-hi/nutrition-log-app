@@ -22,6 +22,11 @@ function LoginPage() {
         <form onSubmit={submit} className="space-y-6">
           {/* Email */}
           <div className="space-y-2">
+            {errors.message && (
+              <div className="pb-4">
+                <p className="text-red-500">・{errors.message}</p>
+              </div>
+            )}
             <Label htmlFor="email" className="text-slate-700">
               メールアドレス
             </Label>
@@ -37,12 +42,8 @@ function LoginPage() {
                   email: e.target.value,
                 })
               }
-              className={errors["user.email"] ? "border-red-500" : ""}
+              className={errors.message ? "border-red-500" : ""}
             />
-
-            {errors["user.email"] && (
-              <p className="text-red-500 text-sm">{errors["user.email"]}</p>
-            )}
           </div>
 
           {/* Password */}
@@ -62,12 +63,8 @@ function LoginPage() {
                   password: e.target.value,
                 })
               }
-              className={errors["user.password"] ? "border-red-500" : ""}
+              className={errors.message ? "border-red-500" : ""}
             />
-
-            {errors["user.password"] && (
-              <p className="text-red-500 text-sm">{errors["user.password"]}</p>
-            )}
           </div>
 
           {/* Submit */}

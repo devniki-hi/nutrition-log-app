@@ -10,33 +10,47 @@ import {
 import { useForm } from "@inertiajs/react";
 import { Label } from "@/components/ui/label.jsx";
 import { useFoodEnums } from "./useFoodEnums.jsx";
+import { useState } from "react";
+import { Button } from "@/components/ui/button.jsx";
+import { X } from "lucide-react";
 
-export default function FoodForm({ food, method, action }) {
+export default function FoodForm({
+  food,
+  method,
+  action,
+  setFoodImageState = () => {},
+}) {
   const { unit_types, sources } = useFoodEnums();
 
   const form = useForm({
     name: food?.name ?? "",
-    portion_value: food?.portion_value ?? "",
+    portion_value: food?.portion_value ?? 0,
     unit_type: food?.unit_type ?? unit_types[0],
-    kcal: food?.kcal ?? "",
-    protein: food?.protein ?? "",
-    fat: food?.fat ?? "",
-    carbs: food?.carbs ?? "",
-    sugar: food?.sugar ?? "",
-    fiber: food?.fiber ?? "",
+    kcal: food?.kcal ?? 0,
+    protein: food?.protein ?? 0,
+    fat: food?.fat ?? 0,
+    carbs: food?.carbs ?? 0,
+    sugar: food?.sugar ?? 0,
+    fiber: food?.fiber ?? 0,
     source: food?.source ?? sources[0],
     jan_code: food?.jan_code ?? "",
     note: food?.note ?? "",
+    food_image: null,
   });
+
+  const [selectedFileName, setSelectedFileName] = useState(
+    food.food_image ? food.food_image.split("/").pop() : ""
+  );
+  const fieldError = (field) => form.errors?.[field];
 
   const handleSubmit = (event) => {
     form.transform((data) => ({
-      ...data,
-      carbs: parseFloat(form.data.sugar) + parseFloat(form.data.fiber),
-      source: "manual",
+      food: {
+        ...data,
+        carbs: parseFloat(data.sugar) + parseFloat(data.fiber),
+        source: "manual",
+      },
     }));
-    console.log(form.data);
-
     event.preventDefault();
     if (method === "post") {
       form.post(action);
@@ -59,10 +73,16 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Input
           id="name"
-          className="bg-white"
+          className={`bg-white ${fieldError("name") ? "border-red-500" : ""}`}
           value={form.data.name}
           onChange={(e) => form.setData("name", e.target.value)}
         />
+
+        {fieldError("name")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg.slice(1)}
+          </p>
+        ))}
       </div>
 
       <div className="flex justify-between gap-2">
@@ -73,10 +93,18 @@ export default function FoodForm({ food, method, action }) {
           <Input
             id="portion_value"
             type="number"
-            className="bg-white"
+            className={`bg-white ${
+              fieldError("portion_value") ? "border-red-500" : ""
+            }`}
             value={form.data.portion_value}
             onChange={(e) => form.setData("portion_value", e.target.value)}
           />
+
+          {fieldError("portion_value")?.map((msg, i) => (
+            <p key={i} className="text-red-500 text-sm">
+              ・{msg}
+            </p>
+          ))}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -126,10 +154,18 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Input
           id="jan_code"
-          className="bg-white"
+          className={`bg-white ${
+            fieldError("jan_code") ? "border-red-500" : ""
+          }`}
           value={form.data.jan_code}
           onChange={(e) => form.setData("jan_code", e.target.value)}
         />
+
+        {fieldError("jan_code")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg}
+          </p>
+        ))}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -138,13 +174,70 @@ export default function FoodForm({ food, method, action }) {
         </Label>
         <Textarea
           id="note"
-          className="bg-white"
+          className={`bg-white ${fieldError("note") ? "border-red-500" : ""}`}
           value={form.data.note}
           onChange={(e) => form.setData("note", e.target.value)}
         />
+
+        {fieldError("note")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            {msg.slice(1)}
+          </p>
+        ))}
       </div>
       <div className="flex flex-col gap-1">
-        <Input id="image" type="file" className="bg-white" />
+        <Label htmlFor="food_image" className="text-slate-700">
+          画像
+        </Label>
+
+        <div className="flex items-center justify-between gap-3">
+          {/* 実際の file input（隠す） */}
+          <input
+            id="food_image"
+            type="file"
+            className="hidden"
+            onChange={(e) => {
+              setFoodImageState(URL.createObjectURL(e.target.files[0]));
+              form.setData("food_image", e.target.files[0]);
+              setSelectedFileName(e.target.files[0].name);
+            }}
+          />
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => document.getElementById("food_image").click()}
+          >
+            ファイルを選択
+          </Button>
+
+          <div className="flex items-center">
+            <span className="text-sm line-clamp-2">
+              {selectedFileName || "ファイル未選択"}
+            </span>
+            {selectedFileName && (
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                onClick={() => {
+                  setFoodImageState(null);
+                  form.setData("food_image", null);
+                  setSelectedFileName("");
+
+                  document.getElementById("food_image").value = "";
+                }}
+              >
+                <X className="w-4 h-4 text-red-300" />
+              </Button>
+            )}
+          </div>
+        </div>
+        {fieldError("food_image")?.map((msg, i) => (
+          <p key={i} className="text-red-500 text-sm">
+            ・{msg}
+          </p>
+        ))}
       </div>
     </form>
   );
@@ -159,10 +252,17 @@ function InputField({ children, label, field, form }) {
       <Input
         id={label}
         type="number"
-        className="bg-white"
+        step="0.01"
+        className={`bg-white ${form.errors?.[field] ? "border-red-500" : ""}`}
         value={form.data[field]}
         onChange={(e) => form.setData(field, e.target.value)}
       />
+
+      {form.errors?.[field]?.map((msg, i) => (
+        <p key={i} className="text-red-500 text-sm">
+          ・{msg.slice(1)}
+        </p>
+      ))}
     </div>
   );
 }

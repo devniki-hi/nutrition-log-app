@@ -1,4 +1,4 @@
-class MealLogsController < ApplicationController
+class MealLogsController < InertiaController
   before_action :authenticate_user!
   before_action :set_meal_log, only: [ :update, :destroy ]
 
@@ -10,12 +10,15 @@ class MealLogsController < ApplicationController
                             .where(logged_at: date.all_day)
                             .order(logged_at: :asc)
 
+    scroll_hour = params[:scroll_hour] ? params[:scroll_hour].to_i : Time.current.hour
+
     render inertia: "MealLogs/Index", props: {
       date: date,
       meal_logs: meal_logs.as_json(
         include: { food: {} },
         methods: [ :intake_kcal, :intake_protein, :intake_fat, :intake_carbs ]
-        )
+        ),
+      scroll_target_hour: scroll_hour
     }
   end
 
@@ -25,25 +28,31 @@ class MealLogsController < ApplicationController
     meal_log.logged_at ||= Time.current
 
     if meal_log.save
-      redirect_to meal_logs_path, notice: "食事ログを追加しました。"
+      hour = meal_log.logged_at.hour
+      redirect_to authenticated_root_path(scroll_hour: hour), notice: "食事を記録しました。"
     else
-      redirect_to meal_logs_path, inertia: { errors: meal_log.errors }
+      redirect_back(
+        fallback_location: authenticated_root_path,
+        inertia: { errors: meal_log.errors }
+      )
     end
   end
 
   # PATCH/PUT /meal-logs/:id
   def update
     if @meal_log.update(meal_log_params)
-      redirect_to meal_logs_path, notice: "食事ログを更新しました。"
+      hour = @meal_log.logged_at.hour
+      redirect_to authenticated_root_path(scroll_hour: hour), notice: "食事を更新しました。"
     else
-      redirect_to meal_logs_path, inertia: { errors: @meal_log.errors }
+      redirect_to authenticated_root_path, inertia: { errors: @meal_log.errors }
     end
   end
 
   # DELETE /meal-logs/:id
   def destroy
+    hour = @meal_log.logged_at.hour
     @meal_log.destroy
-    redirect_to meal_logs_path, notice: "食事ログを削除しました。"
+    redirect_to authenticated_root_path(scroll_hour: hour), notice: "食事の記録を削除しました。"
   end
 
   private

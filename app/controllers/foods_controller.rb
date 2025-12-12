@@ -1,4 +1,5 @@
 class FoodsController < InertiaController
+  before_action :authenticate_user!
   before_action :set_food, only: %i[show edit update destroy ]
   inertia_share do {
     unit_types: Food.unit_types.keys,
@@ -42,9 +43,11 @@ class FoodsController < InertiaController
   # POST /foods
   def create
     @food = Food.new(food_params)
-
+    if params[:food][:food_image].present?
+      @food.food_image.attach(params[:food][:food_image])
+    end
     if @food.save
-      redirect_to @food, notice: "Food was successfully created."
+      redirect_to @food, notice: "食品が保存されました。"
     else
       redirect_to new_food_url, inertia: { errors: @food.errors }
     end
@@ -52,8 +55,11 @@ class FoodsController < InertiaController
 
   # PATCH/PUT /foods/1
   def update
+    if params[:food][:food_image].present?
+      @food.food_image.attach(params[:food][:food_image])
+    end
     if @food.update(food_params)
-      redirect_to @food, notice: "Food was successfully updated."
+      redirect_to @food, notice: "食品が更新されました。"
     else
       redirect_to edit_food_url(@food), inertia: { errors: @food.errors }
     end
@@ -62,7 +68,7 @@ class FoodsController < InertiaController
   # DELETE /foods/1
   def destroy
     @food.destroy!
-    redirect_to foods_url, notice: "Food was successfully destroyed."
+    redirect_to foods_url, notice: "食品が削除されました。"
   end
 
   private
@@ -85,11 +91,14 @@ class FoodsController < InertiaController
         :fiber,
         :source,
         :jan_code,
-        :note
+        :note,
+        :food_image,
       )
     end
 
     def serialize_food(food)
-      food.as_json()
+      food.as_json.merge(
+        food_image: food.food_image.attached? ? rails_blob_url(food.food_image, only_path: true) : nil
+      )
     end
 end

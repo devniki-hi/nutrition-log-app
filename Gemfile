@@ -69,7 +69,10 @@ gem "inertia_rails", "~> 3.13"
 
 gem "vite_rails", "~> 3.0"
 
-# Gemfile
 gem "devise"
 
 gem "faker"
+
+gem "rails-i18n"
+
+gem "active_storage_validations"

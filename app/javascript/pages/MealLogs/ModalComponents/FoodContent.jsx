@@ -44,11 +44,6 @@ export default function FoodContent({ food }) {
         {/* 備考 */}
         <div className="border-t pt-3 whitespace-pre-line">
           <strong className="block mb-1">備考</strong>
-          内容量：{food.portion_value}
-          {food.unit_type}
-          {"\n"}
-          データ元：{food.source}
-          {"\n"}
           {food.note}
         </div>
       </CardContent>

@@ -5,9 +5,8 @@ function SummaryCard({ totals }) {
   return (
     <Card
       className="
-        w-[150px]
+        w-40
         border-sky-500
-        
       "
     >
       {/* タイトル（合計） */}

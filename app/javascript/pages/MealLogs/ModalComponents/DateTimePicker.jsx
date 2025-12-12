@@ -18,18 +18,23 @@ function formatForInput(value) {
   return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
 }
 
-export function DateTimePicker({ form }) {
+export function DateTimePicker({ form, errors }) {
   const inputValue = formatForInput(form.data.logged_at);
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm font-semibold text-slate-700">時間</p>
-      <Label htmlFor="expired_at">Expired At</Label>
+    <div className="flex flex-col">
+      <p className="text-sm font-semibold text-slate-700 my-1">日付時間</p>
       <Input
-        id="expired_at"
+        id="logged_at"
         type="datetime-local"
         value={inputValue}
+        className={`bg-white ${errors.logged_at ? "border-red-500" : ""}`}
         onChange={(e) => form.setData("logged_at", e.target.value)}
       />
+      {errors.logged_at?.map((msg, i) => (
+        <p key={i} className="text-red-500 text-sm">
+          ・{msg.slice(1)}
+        </p>
+      ))}
     </div>
   );
 }
