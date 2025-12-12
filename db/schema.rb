@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_10_154038) do
     t.check_constraint "char_length(note) <= 500", name: "foods_note_length_check"
     t.check_constraint "fat >= 0::double precision", name: "foods_fat_non_negative"
     t.check_constraint "fiber >= 0::double precision", name: "foods_fiber_non_negative"
+    t.check_constraint "jan_code::text ~ '^[0-9]{13}$'::text OR jan_code IS NULL OR jan_code::text = ''::text", name: "foods_jan_code_format_check"
     t.check_constraint "kcal >= 0::double precision", name: "foods_kcal_non_negative"
     t.check_constraint "portion_value > 0", name: "foods_portion_positive"
     t.check_constraint "protein >= 0::double precision", name: "foods_protein_non_negative"
