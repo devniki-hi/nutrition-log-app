@@ -17,4 +17,4 @@ echo "Cleaning old assets..."
 bundle exec rails assets:clean
 
 echo "Running database migrations..."
-bundle exec rails db:reset
+bundle exec rails db:migrate
