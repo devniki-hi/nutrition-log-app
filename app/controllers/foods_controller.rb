@@ -43,9 +43,6 @@ class FoodsController < InertiaController
   # POST /foods
   def create
     @food = Food.new(food_params)
-    if params[:food][:food_image].present?
-      @food.food_image.attach(params[:food][:food_image])
-    end
     if @food.save
       redirect_to @food, notice: "食品が保存されました。"
     else
@@ -55,9 +52,7 @@ class FoodsController < InertiaController
 
   # PATCH/PUT /foods/1
   def update
-    if params[:food][:food_image].present?
-      @food.food_image.attach(params[:food][:food_image])
-    end
+    purge_food_image_if_requested(@food)
     if @food.update(food_params)
       redirect_to @food, notice: "食品が更新されました。"
     else
@@ -79,7 +74,7 @@ class FoodsController < InertiaController
 
     # Only allow a list of trusted parameters through.
     def food_params
-      params.require(:food).permit(
+      permitted = params.require(:food).permit(
         :name,
         :portion_value,
         :unit_type,
@@ -92,8 +87,21 @@ class FoodsController < InertiaController
         :source,
         :jan_code,
         :note,
-        :food_image,
+        :food_image
       )
+      permitted.delete(:food_image) unless permitted[:food_image].is_a?(ActionDispatch::Http::UploadedFile)
+
+      permitted
+    end
+
+    def purge_food_image_if_requested(food)
+      return unless remove_food_image?
+
+      food.food_image.purge if food.food_image.attached?
+    end
+
+    def remove_food_image?
+      ActiveModel::Type::Boolean.new.cast(params.dig(:food, :remove_food_image))
     end
 
     def serialize_food(food)

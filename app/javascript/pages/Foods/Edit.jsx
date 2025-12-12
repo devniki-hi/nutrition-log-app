@@ -43,7 +43,6 @@ export default function Edit({ food, flash }) {
         </div>
 
         <div className="md:flex md:items-center">
-          {/* 左：画像エリア */}
           <div className="md:w-1/2 flex flex-col items-center p-8">
             <div className="aspect-square max-w-[420px] max-h-[420px] w-full bg-gray-50 shadow-md rounded-md ">
               <img
@@ -54,7 +53,6 @@ export default function Edit({ food, flash }) {
             </div>
           </div>
 
-          {/* 右：編集 */}
           <div className="md:w-1/2 bg-sky-50 shadow-md rounded-lg p-4 h-auto">
             <FoodForm
               food={food}
