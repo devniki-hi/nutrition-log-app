@@ -35,10 +35,10 @@ Rails.application.routes.draw do
   patch "/mypage", to: "users/users#update"
   # delete "/mypage", to: "users/users#destroy"
 
-  #AI Chat
-  get "/food-chat", to:"food_chat#index"
-  post "/food-chat", to:"food_chat#create"
-  
+  # AI Chat
+  get "/food-chat", to: "food_chat#index"
+  post "/food-chat", to: "food_chat#create"
+
 
   # Redirect to localhost from 127.0.0.1 to use same IP address with Vite server
   # get "inertia-example", to: "inertia_example#index"
