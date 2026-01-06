@@ -1,20 +1,18 @@
 import { Link, router } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import HeaderHamburger from "./HeaderHamburger.jsx";
-import HeaderUserMenu from "./HeaderUserMenu.jsx";
 import HeaderTitle from "./HeaderTitle.jsx";
 
 function Header({ auth }) {
   return (
     <>
       {auth ? (
-        <header className="flex items-center justify-between h-16 px-8 border border-slate-100 bg-white">
+        <header className="flex items-center justify-center h-16 px-8 border border-slate-100 bg-white">
           {/* ▼ 小画面：ハンバーガーメニュー（lg未満で表示） */}
-          <div className="md:hidden">
+          <div className="md:hidden absolute left-4">
             <HeaderHamburger />
           </div>
           <HeaderTitle />
-          <HeaderUserMenu />
         </header>
       ) : (
         <header className="flex items-center justify-center md:justify-between h-16 px-8 border border-slate-100 bg-white">
