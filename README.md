@@ -1,6 +1,7 @@
 # 食事ログ
 
 サービス URL：https://nutrition-log-app.onrender.com
+![welcome-page](app/assets/gifs/welcome-page.gif)
 
 # 概要
 
@@ -32,6 +33,82 @@
 無理なく減量を続けられるように設計しています。
 
 # 機能一覧
+
+- 食品 CRUD
+- 食事の追加・日付選択
+
+## 食品 CRUD
+
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>食品 作成</strong></td>
+    <td width="50%" align="center"><strong>食品 一覧</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="app/assets/gifs/food-add.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-index.gif" /></td>
+  </tr>
+  <tr>
+    <td>食品データを新規作成できます。</td>
+    <td>登録済みの食品一覧を確認できます。</td>
+  </tr>
+</table>
+
+<br />
+
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>食品 編集</strong></td>
+    <td width="50%" align="center"><strong>食品 削除</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="app/assets/gifs/food-edit.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-delete.gif" /></td>
+  </tr>
+  <tr>
+    <td>登録済み食品の内容を編集できます。</td>
+    <td>不要な食品データを削除できます。</td>
+  </tr>
+</table>
+
+## 食事に関する機能
+
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>食事の追加</strong></td>
+    <td width="50%" align="center"><strong>日付別の食事確認</strong></td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="app/assets/gifs/add-meal.gif" />
+    </td>
+    <td align="center">
+      <img src="app/assets/gifs/meal-select-date.gif" />
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      登録済みの食品データから食べたものを選択し、
+      日付と摂取量を指定して食事ログとして追加できます。
+    </td>
+    <td>
+      カレンダーとページネーションを使って日付を切り替え、
+      選択した日の食事内容を一覧で確認できます。
+    </td>
+  </tr>
+</table>
+
+## ユーザー機能
+
+<table>
+<tr> <td align="center">ユーザー登録・ログイン</td></tr>
+<tr><td align="center"><img src="app/assets/gifs/login.gif"></td></tr>
+<tr>
+    <td>メールアドレス＋パスワード、またはGoogle連携でログイン。パスワードを忘れた際はリセットメールを送信できます。</td>
+    </tr>
+</table>
 
 # 使用技術
 

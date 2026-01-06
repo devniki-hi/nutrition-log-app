@@ -49,7 +49,7 @@ function Index({ meal_logs, flash, date, scroll_target_hour }) {
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="font-bold text-3xl">食品一覧</h1>
+          <h1 className="font-bold text-3xl">食事記録</h1>
           <div className="hidden md:block">
             <DatePicker selectedDate={date} />
           </div>
