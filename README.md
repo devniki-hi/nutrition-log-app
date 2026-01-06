@@ -1,7 +1,7 @@
 # 食事ログ
 
 サービス URL：https://nutrition-log-app.onrender.com
-![welcome-page](gifs/welcome-page.gif)
+![welcome-page](app/assets/gifs/welcome-page.gif)
 
 # 概要
 
@@ -45,8 +45,8 @@
     <td width="50%" align="center"><strong>食品 一覧</strong></td>
   </tr>
   <tr>
-    <td align="center"><img src="gifs/food-add.gif" /></td>
-    <td align="center"><img src="gifs/food-index.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-add.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-index.gif" /></td>
   </tr>
   <tr>
     <td>食品データを新規作成できます。</td>
@@ -62,8 +62,8 @@
     <td width="50%" align="center"><strong>食品 削除</strong></td>
   </tr>
   <tr>
-    <td align="center"><img src="gifs/food-edit.gif" /></td>
-    <td align="center"><img src="gifs/food-delete.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-edit.gif" /></td>
+    <td align="center"><img src="app/assets/gifs/food-delete.gif" /></td>
   </tr>
   <tr>
     <td>登録済み食品の内容を編集できます。</td>
@@ -81,10 +81,10 @@
 
   <tr>
     <td align="center">
-      <img src="gifs/add-meal.gif" />
+      <img src="app/assets/gifs/add-meal.gif" />
     </td>
     <td align="center">
-      <img src="gifs/meal-select-date.gif" />
+      <img src="app/assets/gifs/meal-select-date.gif" />
     </td>
   </tr>
 
@@ -104,7 +104,7 @@
 
 <table>
 <tr> <td align="center">ユーザー登録・ログイン</td></tr>
-<tr><td align="center"><img src="gifs/login.gif"></td></tr>
+<tr><td align="center"><img src="app/assets/gifs/login.gif"></td></tr>
 <tr>
     <td>メールアドレス＋パスワード、またはGoogle連携でログイン。パスワードを忘れた際はリセットメールを送信できます。</td>
     </tr>
