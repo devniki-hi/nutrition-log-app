@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MealForm from "./ModalComponents/MealForm.jsx";
 import MealModal from "./ModalComponents/MealModal.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Head, Link } from "@inertiajs/react";
-import TimelineContainer from "./TimelineComponents/TimelineContainer.jsx";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AlertDialogDescription } from "@/components/ui/alert-dialog.jsx";
 import DatePicker from "./DatePicker.jsx";
+import DailySummaryBar from "./TimelineComponents/DailySummaryBar.jsx";
+import MealTerm from "./TimelineComponents/MealTerm.jsx";
 
 function Index({ meal_logs, flash, date, scroll_target_hour }) {
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -24,6 +25,16 @@ function Index({ meal_logs, flash, date, scroll_target_hour }) {
     setEditingLog(log);
     setOpenEditModal(true);
   };
+
+  const totals = meal_logs.reduce(
+    (acc, log) => ({
+      kcal: acc.kcal + Number(log.intake_kcal ?? 0),
+      protein: acc.protein + Number(log.intake_protein ?? 0),
+      fat: acc.fat + Number(log.intake_fat ?? 0),
+      carbs: acc.carbs + Number(log.intake_carbs ?? 0),
+    }),
+    { kcal: 0, protein: 0, fat: 0, carbs: 0 }
+  );
 
   return (
     <>
@@ -50,10 +61,12 @@ function Index({ meal_logs, flash, date, scroll_target_hour }) {
           <DatePicker selectedDate={date} />
         </div>
 
-        <TimelineContainer
+        <DailySummaryBar totals={totals} />
+
+        <MealTerm
           mealLogs={meal_logs}
+          totals={totals}
           onSelectMeal={handleSelectMeal}
-          scrollToHour={scroll_target_hour}
         />
         <MealModal
           open={openEditModal}

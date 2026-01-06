@@ -10,20 +10,26 @@ function MealCard({ log, onSelect }) {
           {log.food.name}
         </CardTitle>
 
-        <p>{Math.round(log.intake_kcal)} kcal</p>
+        <p>{Number(log.intake_kcal ?? 0).toFixed(1)} kcal</p>
       </CardHeader>
 
       {/* P / F / C 栄養表 */}
       <CardContent className="px-4">
         <div className="grid grid-cols-2 text-left leading-6">
           <p>P :</p>
-          <p className="text-right">{Math.round(log.intake_protein)} g</p>
+          <p className="text-right">
+            {Number(log.intake_protein ?? 0).toFixed(1)} g
+          </p>
 
           <p>F :</p>
-          <p className="text-right">{Math.round(log.intake_fat)} g</p>
+          <p className="text-right">
+            {Number(log.intake_fat ?? 0).toFixed(1)} g
+          </p>
 
           <p>C :</p>
-          <p className="text-right">{Math.round(log.intake_carbs)} g</p>
+          <p className="text-right">
+            {Number(log.intake_carbs ?? 0).toFixed(1)} g
+          </p>
         </div>
       </CardContent>
     </Card>
