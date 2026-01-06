@@ -1,6 +1,7 @@
 # 食事ログ
 
 サービス URL：https://nutrition-log-app.onrender.com
+![welcome-page](welcome-page.gif)
 
 # 概要
 
